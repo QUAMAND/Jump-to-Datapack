@@ -8,9 +8,6 @@
 데이터 팩을 쉽게 배우고 활용할 수 있도록 제작한 프로젝트입니다.  
 외에도 데이터 팩/마인크래프트와 관련한 유용한 도구도 포함되어 있습니다.
 
-## 주소
-> [[Jump-to-Datapack](https://quamand.github.io/Jump-to-Datapack)]
-
 <br/>
 
 ## 데이터 팩 자동 생성기

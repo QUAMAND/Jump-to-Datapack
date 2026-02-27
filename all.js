@@ -23,6 +23,6 @@ document.addEventListener('click', c => {
  */
 if (HOME_BTN) {
    HOME_BTN.addEventListener('click', c => {
-      location.href = "/"
+      location.href = "./"
    })
 }

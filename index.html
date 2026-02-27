@@ -1,140 +1,95 @@
 <!DOCTYPE html>
 <html lang="ko">
-    <script>
-        if (!location.hash) {
-            location.replace(location.pathname + "#1");
-        }
-    </script>
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Jump-to-Datapack</title>
+   <link rel="icon" href="assets/icon.png"/>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+   <link rel="stylesheet" href="style.css"/>
+   <link rel="stylesheet" href="style-mobile.css"/>
+   <link rel="stylesheet" href="style-mcfunction.css"/>
+</head>
 
-    <!-- 문서 헤드 -->
+<body>
+   <!-- 로딩 화면 -->
+   <div id="LOADING" style="display:none;">
+      <img src="assets/loading.gif">
+      <div>페이지 로딩 중...</div>
+   </div>
 
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width,initial-scale=1" />
-        <title>Jump to - datapack</title>
-        <link rel="icon" href="assets/icon.png" />
+   <!-- 진행 바 -->
+   <div id="PROGRESS"></div>
 
-        <link rel="stylesheet" href="style.css" />
-        <link
-            rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css"
-        />
-        <link rel="stylesheet" href="menu.css" />
-        <link rel="stylesheet" href="code.css" />
-    </head>
+   <!-- 모바일 상단 바 -->
+   <div id="TOPBAR">
+      <button id="MENU_BTN">☰</button>
+      <div id="TITLE_GROUP">
+         <img id="ICON" src="assets/icon.png"/>
+         <span class="TOP_TITLE" id="TOP_TITLE">Jump to Datapack</span>
+      </div>
+      <div id="MORE_BTN">
+         <svg viewBox="0 0 8 8" width="30" height="30" shape-rendering="crispEdges" xmlns="http://www.w3.org/2000/svg">
+            <g fill="currentColor">
+               <rect x="3" y="1" width="1" height="1"/>
+               <rect x="4" y="1" width="1" height="1"/>
+               <rect x="2" y="2" width="1" height="1"/>
+               <rect x="5" y="2" width="1" height="1"/>
+               <rect x="1" y="3" width="1" height="1"/>
+               <rect x="6" y="3" width="1" height="1"/>
+               <rect x="0" y="4" width="1" height="1"/>
+               <rect x="7" y="4" width="1" height="1"/>
+            </g>
+         </svg>
+      </div>
+      <div id="MORE_LIST">
+         <a href="jar.html"><img class="EMOJI" src="assets/icon-jar.png"/> JAR download</a>
+         <br/>
+         <a href="https://www.minecraft.net" target="_blank"><img class="EMOJI" src="assets/img/emoji/launcher.png"/> minecraft.net</a>
+         <a href="https://minecraft.wiki" target="_blank"><img class="EMOJI" src="https://minecraft.wiki/images/Wiki.png"/> minecraft.wiki</a>
+         <a href="https://mojira.dev" target="_blank"><img class="EMOJI" src="assets/img/emoji/mojang.png"/> mojira.dev</a>
+         <a href="https://www.mcc-gadgets.com/java/changelog" target="_blank"><img class="EMOJI" src="assets/img/emoji/versions_info.png"/> mcc-gadgets.com</a>
+         <br/>
+         <a href="https://mcstacker.net" target="_blank"><img class="EMOJI" src="assets/img/emoji/compass.png"/> mcstacker.net</a>
+         <a href="https://misode.github.io" target="_blank"><img class="EMOJI" src="assets/img/emoji/compass.png"/> misode.github.io</a>
+         <a href="https://cccode.pages.dev/version-diff/" target="_blank"><img class="EMOJI" src="assets/img/emoji/compass.png"/> cccode.pages.dev</a>
+         <a href="https://mcsrc.dev" target="_blank"><img class="EMOJI" src="assets/img/emoji/compass.png"/> mcsrc.dev</a>
+         <a href="https://bdengine.app" target="_blank"><img class="EMOJI" src="assets/img/emoji/compass.png"/> bdengine.app</a>
+         <a href="https://sozoka.github.io/LangSync" target="_blank"><img class="EMOJI" src="assets/img/emoji/compass.png"/> sozoka.github.io</a>
+         <br/>
+         <a href="#0/credits"><img class="EMOJI" src="assets/menu.svg"/> Credits</a>
+      </div>
+   </div>
 
-    <!-- 로딩 화면 -->
-    <div id="page-loading" style="display: none" class="page-loading">
-        <img src="assets/gif/loading.gif" alt="로딩 중" style="width: 140px; height: 140px; margin-bottom: 16px" />
-        <div class="page-loading">페이지 로딩 중...</div>
-    </div>
+   <div class="APP">
+      <aside id="SIDEBAR">
+         <input id="SEARCH" placeholder="/ 키로 빠른 검색 혹은 직접 검색" />
 
-    <!-- 상단 내비게이션 바 -->
-    <header class="top-navbar">
-        <div class="brand">
-            <img src="assets/basic.svg" alt="logo" class="logo" />
-            <a href="#1" class="home-btn" id="home-btn">
-                <p>점프 투 데이터 팩</p>
-            </a>
-        </div>
-        <nav class="nav-left-btn menu-btn">
-            <a></a>
-            <a href="https://www.minecraft.net/" target="_blank">공식 사이트</a>
-            <a href="https://minecraft.wiki" target="_blank">위키</a>
-            <a href="https://bugs.mojang.com/browse/MC" target="_blank">버그 제보</a>
-            <a href="https://www.mcc-gadgets.com/java/changelog" target="_blank">버전 역사</a>
-            <a href="#1" id="latest-version">최신 버전: </a>
-        </nav>
-        <div class="menu-container">
-            <button class="menu-btn dropdown-btn">☰</button>
-            <div class="dropdown-menu">
-                <a href="https://www.minecraft.net/" target="_blank">공식 사이트</a>
-                <a href="https://minecraft.wiki" target="_blank">위키</a>
-                <a href="https://bugs.mojang.com/browse/MC" target="_blank">버그 제보</a>
-                <a href="https://www.mcc-gadgets.com/java/changelog" target="_blank">버전 역사</a>
-                <hr style="border-color: #554cfa; margin: 8px 0" />
-                <a href="#0/links" title="링크">Links</a>
-                <a href="#0/credits" title="크레딧">Credits</a>
-            </div>
-        </div>
-    </header>
+         <nav id="PAGES"></nav>
+      </aside>
 
-    <!-- 본문 -->
+      <main class="CONTENT">
+         <h1 id="TITLE">페이지 로딩 중...</h1>
+         <div id="SUBTITLE"></div>
 
-    <body>
-        <div id="progress-bar"></div>
-        <div class="sidebar-overlay" id="sidebar-overlay"></div>
-        <button class="sidebar-toggle" id="sidebar-toggle" aria-label="메뉴 열기">☰</button>
-        <div class="app">
-            <aside class="sidebar" id="sidebar">
-                <input id="q" class="search" placeholder="/ 키로 빠른 검색" />
+         <article id="ARTICLE">페이지를 선택하세요.</article>
 
-                <nav id="pages" class="pages"></nav>
-                <footer class="footer">
-                    Font: MineCrafter by PurePixel / MadPixel Licensed under Creative Commons (Non-Commercial)
-                </footer>
-            </aside>
-
-            <main class="content">
-                <header class="article-head">
-                    <h2 id="title">페이지 로딩 중...</h2>
-                    <div id="subtitle" class="subtitle"></div>
-                </header>
-
-                <article id="article" class="article">페이지를 선택하세요.</article>
-            </main>
-        </div>
-
-        <!-- 스크립트 -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.3.0/marked.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
-        <script>
-            Prism.plugins.autoloader.languages_path = "https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/";
-        </script>
-
-        <script type="module">
-            import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs";
-            window.mermaid = mermaid;
-            mermaid.initialize({
-                startOnLoad: false,
-                theme: "base",
-                themeVariables: {
-                    /* 기본 배경, 글자 */
-                    primaryColor: "#0f1724",
-                    primaryTextColor: "#e6eef8",
-                    primaryBorderColor: "#5a7bffbb",
-
-                    /* 노드 색상 */
-                    nodeTextColor: "#e6eef8",
-                    tertiaryColor: "#1e2a47",
-                    secondaryColor: "#151d32",
-
-                    /* 화살표 */
-                    edgeLabelBackground: "#0b1220",
-                    arrowheadColor: "#8d85ee",
-
-                    /* 상태(hover/active)*/
-                    noteBkgColor: "#1e2a47aa",
-                    noteTextColor: "#d0d8ff",
-                    noteBorderColor: "#5a4bff",
-
-                    clusterBkg: "#0b1220",
-                    clusterBorder: "#5a4bff55",
-
-                    textColor: "#e6eef8",
-
-                    activationBorderColor: "#d1b3ff88",
-                    activationBkgColor: "#5a4bff33",
-
-                    lineColor: "#ffffff",
-                    arrowheadColor: "#d1b3ff",
-                    edgeLabelBackground: "#1a1a2eaa",
-                },
-            });
-        </script>
-        <script src="app.js"></script>
-        <script src="menu.js"></script>
-        <script src="prism-mcfunction.js"></script>
-    </body>
+         <footer id="FOOTER">
+            <a href="https://www.dafont.com/minecrafter.font" target="_blank">Font: MineCrafter by PurePixel / MadPixel — Creative Commons Non-Commercial</a>
+         </footer>
+      </main>
+   </div>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.3.0/marked.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+   <script type="module" src="src/mermaid.mjs"></script>
+   <script src="src/annotation.js"></script>
+   <script src="src/emoji.js"></script>
+   <script src="src/mcfunction.js"></script>
+   <script src="src/pre-copy.js"></script>
+   <script src="src/render.js"></script>
+   <script src="all.js"></script>
+   <script src="app.js"></script>
+   <script src="app-mobile.js"></script>
+</body>
 </html>
+</div>

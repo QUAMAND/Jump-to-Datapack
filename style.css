@@ -1,698 +1,499 @@
 :root {
-    --bg: #0b1220;
-    --card: #0f1724;
-    --code-card: #1e2a47;
-    --accent: oklch(0.549 0.2105 277.72);
-    --accent-green: yellowgreen;
-    --accent-light: #8d85ee;
-    --accent-hover: #d1b3ff;
-    --muted: #aab3c6;
-    --glass: rgba(255, 255, 255, 0.03);
+   --background: #0b1220;
+   --background-alpha: rgba(0,0,0,0.4);
+   --background-light: rgba(200,200,200,.1);
+   --background-side: rgba(255,255,255,.04);
+   --background-pre: rgba(200,200,200,.15);
 
-    --table-bg: rgba(11, 18, 32, 0.8);
-    --th-bg: rgba(79, 70, 229, 0.45);
-    --hover-bg: rgba(137, 131, 224, 0.125);
-    --border-color: rgba(255, 255, 255, 0.1);
-}
+   --accent: oklch(.549 .2105 277.72);
+   --accent-alpha: rgba(100, 50, 200, .3);
+   --accent-light: oklch(70.414% 0.1657 288.941);
+   --accent-light-alpha: rgba(193, 126, 234, .3);
+   --accent-green: yellowgreen;
+   --accent-cyan: rgba(54, 254, 173, 0.85);
 
-@font-face {
-    font-family: "Pyeongchang";
-    src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2206-02@1.0/PyeongChang-Regular.woff2")
-        format("woff2");
-    font-weight: normal;
-    font-display: swap;
-}
-@font-face {
-    font-family: "D2Coding";
-    src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_three@1.0/D2Coding.woff") format("woff");
-    font-weight: normal;
-    font-display: swap;
-}
-@font-face {
-    font-family: "GimhaeGaya";
-    src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2202-2@1.0/GimhaeGayaR.woff") format("woff");
-    font-weight: normal;
-    font-display: swap;
-}
-@font-face {
-    font-family: "GMarketSans";
-    src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff") format("woff");
-    font-weight: 500;
-    font-display: swap;
-}
-@font-face {
-    font-family: "GMarketSans";
-    src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff") format("woff");
-    font-weight: 500;
-    font-display: swap;
-}
-@font-face {
-    font-family: "Minecraft-Event";
-    src: url("assets/fonts/minecrafter/Minecrafter.Reg.ttf");
+   --title: #fff;
+   --subtitle: rgba(255,255,255,.6);
+   --content: #eee;
+   --content-code: rgba(255, 131, 120, .95);
+   --content-highlight: #FFE600;
+   --content-warning: #ff6f3a;
+   --content-info: #5a4bff;
+   --content-tip: #ffb732;
 }
 
-* {
-    box-sizing: border-box;
+@font-face {
+   font-family: 'Pyeongchang';
+   src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2206-02@1.0/PyeongChang-Regular.woff2') format('woff2');
+   font-weight: normal;
+   font-display: swap;
 }
-html,
-body,
-#root {
-    height: 100%;
-    overflow-y: hidden;
+@font-face {
+   font-family: 'D2Coding';
+   src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_three@1.0/D2Coding.woff') format('woff');
+   font-weight: normal;
+   font-display: swap;
 }
+@font-face {
+   font-family: 'Minecraft-Event';
+   src: url('assets/fonts/minecrafter/Minecrafter.Reg.ttf')
+}
+@font-face {
+   font-family: 'GMarketSans';
+   src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+   font-weight: 500;
+   font-display: swap;
+}
+
+html, body {
+   height: 100%;
+   overflow: hidden;
+}
+
 body {
-    background: linear-gradient(180deg, #061025 0%, #071227 100%);
-    color: #e6eef8;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    font-family: "Pyeongchang";
+   background: linear-gradient(180deg, var(--background) 50%, #070707 100%);
+   color: var(--content);
+   font-family: 'Pyeongchang';
 }
 
-/* 페이지 로딩 중 */
-#page-loading {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(7, 16, 37, 0.4);
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    z-index: 99999;
-    color: white;
-    font-size: 26px;
-    font-weight: bold;
-    backdrop-filter: blur(2px);
+#TOPBAR {
+   display: flex;
+   position: relative;
+   top: 0; left: 0; right: 0;
+   height: 64px;
+   background: var(--background-side);
+   border: 8px ridge var(--background-light);
+   align-items: center;
+   justify-content: center;
+   padding: 0 16px;
+   z-index: 1000;
 }
+#MORE_BTN svg {
+   transition: transform .3s ease;
+   position: absolute;
+   flex-shrink: 0;
+   top: 18px;
+   right: 18px;
+   background: none;
+   border: none;
+   color: var(--title);
+   cursor: pointer;
+   line-height: 1;
+   align-items: center;
+   justify-self: center;
+}
+#MORE_BTN:hover svg {
+   transform: rotate(-180deg);
+}
+#MORE_BTN.open svg {
+   transform: rotate(-180deg);
+   color: var(--accent-light);
+}
+#MORE_LIST {
+   overflow-y: auto;
+   position: fixed;
+   top: 96px;
+   right: 0;
+   width: 240px;
+   height: calc(100% - 160px);
+   background: linear-gradient(180deg, var(--background), var(--background-pre));
+   backdrop-filter: blur(8px);
+   border-radius: 12px 0 0 12px;
+   border: 1px solid var(--background-light);
+   transform: translateX(100%);
+   transition: transform .2s ease;
+   padding: 1rem;
+   z-index: 999;
+   display: flex;
+   flex-direction: column;
+   gap: 12px;
+}
+#MORE_LIST.open {
+   transform: translateX(0);
+}
+#MORE_LIST a {
+   border-radius: 6px;
+   cursor: pointer;
+   transition: background .1s;
+   padding: 10px 20px;
+   color: var(--content);
+   text-decoration: none;
+   display: block;
+}
+#MORE_LIST a:hover {
+   background: var(--accent-alpha);
+   border-left: 4px solid var(--accent);
+   transition: .125s ease;
+}
+#MORE_LIST::-webkit-scrollbar {width: 12px;}
+#MORE_LIST::-webkit-scrollbar-track {background: var(--background-side); border-radius: 4px;}
+#MORE_LIST::-webkit-scrollbar-thumb {background-color: var(--accent); border-radius: 4px}
+#MORE_LIST::-webkit-scrollbar-thumb:hover {background-color: var(--accent-light)}
+
+#TITLE_GROUP {
+   position: relative;
+   display: flex;
+   align-items: center;
+   display: flex;
+   align-items: center;
+}
+#TITLE_GROUP::after {
+   content: 'Jump ↔ Dive 문서를 전환합니다.';
+   position: absolute;
+   top: 100%;
+   left: 50%;
+   transform: translateX(-50%);
+   background: var(--background-light);
+   color: var(--subtitle);
+   font-size: 14px;
+   padding: 4px 10px;
+   border-radius: 8px;
+   white-space: nowrap;
+   opacity: 0;
+   transition: opacity .2s ease;
+}
+#TITLE_GROUP:hover::after {
+   opacity: 1;
+}
+.TOP_TITLE {
+   cursor: pointer;
+   font-family: 'Minecraft-Event';
+   position: relative;
+   top: 3px;
+   transform: none;
+   color: var(--title);
+   transition: .1s ease;
+   font-size: clamp(10px, 5.5vw, 40px);
+   align-items: center;
+   justify-self: center;
+}
+
+/* 로고 */
+#ICON {
+   width: clamp(10px, 5.5vw, 56px);
+   height: clamp(10px, 5.5vw, 56px);
+   align-items: center;
+   justify-self: center;
+   margin-top: -5px;
+   cursor: pointer;
+}
+
 /* 진행 바 */
-#progress-bar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 4px;
-    background: var(--accent-light);
-    width: 0%;
-    z-index: 9999;
-    transition: width 0.1s linear;
+#PROGRESS {
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 0%;
+   height: 6px;
+   border-radius: 1px;
+   background: var(--accent);
+   transition: width .1s linear;
+   z-index: 9999;
+}
+/* 로딩 중 */
+#LOADING {
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   background: var(--background-alpha);
+   display: none;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   color: var(--title);
+   font-size: 36px;
+   font-weight: bold;
+   backdrop-filter: blur(8px);
 }
 
-/* 페이지 링크 미리보기 */
-#link-preview {
-    position: absolute;
-    display: none;
-    background: var(--card);
-    border: 1px solid var(--accent);
-    border-radius: 8px;
-    padding: 10px;
-    max-width: 300px;
-    font-size: 14px;
-    color: #e6eef8;
-    box-shadow: 0 4px 15px rgba(0, 150, 150, 0.5);
-    z-index: 9999;
-    pointer-events: none;
-    line-height: 1.5;
-    opacity: 0;
-    transform: translateY(-10px);
-    transition: opacity 0.2s ease, transform 0.2s ease;
+#SEARCH{
+   padding: 10px 12px;
+   border-radius: 16px;
+   background: var(--glass);
+   border: 1px solid var(--title);
+   color: var(--subtitle);
+   outline: none;
 }
-#link-preview.show {
-    opacity: 0.925;
-    transform: translateY(0);
+#SEARCH:focus{
+   border-color: var(--accent-green);
+}
+.SEARCH_HIGHLIGHT {
+   background: var(--content-highlight);
+   color: black;
+   border-radius: 3px;
+   padding: .0625em 2px;
 }
 
-#article {
-    opacity: 1;
-    transition: opacity 0.3s ease;
+#FOOTER a {
+   opacity: .6;
+   font-size: 10px;
+   margin-left: -20px;
+   padding: 0px 20px;
+   color: rgba(255,255,255,.3);
+   text-decoration: none;
+   font-family: 'Minecraft-Event';
 }
-#article.fade {
-    opacity: 0;
-}
-
-.app {
-    display: flex;
-    height: 100vh;
-}
-
-/* 어노테이션 */
-.annotation:not(.article span) {
-    display: block;
-    font-size: 32px;
-    border-left: 4px solid;
-    background-color: #252525;
-    padding: 6px 12px;
-    margin: 12px 0;
-    border-radius: 4px;
-    font-family: "Minecraft-Event";
-}
-.annotation-tag {
-    font-weight: bold;
-    cursor: help;
-    position: relative;
+#FOOTER a:hover {
+   text-decoration: underline;
+   color: rgba(255,255,255,.35)
 }
 
-/* 어노테이션 색상 */
-.annotation.deprecated {
-    border-color: #ff5555;
-}
-.annotation.deprecated .annotation-tag {
-    color: #ff5555;
-}
-.annotation.todo {
-    border-color: #ffcc00;
-}
-.annotation.todo .annotation-tag {
-    color: #ffcc00;
-}
-.annotation.note {
-    border-color: #55ff55;
-}
-.annotation.note .annotation-tag {
-    color: #55ff55;
+.APP {
+   margin-top: 8px;
+   height: calc(100% - 48px);
+   display: flex;
 }
 
-/* 박스 스타일 */
-.box {
-    display: flex;
-    gap: 6px;
-    align-items: center;
-    padding: 12px 8px;
-    border-radius: 8px;
-    margin: 8px 0;
-    white-space: pre-wrap;
-}
-.box-text {
-    font-family: "GMarketSans";
-}
-.box-icon {
-    width: 36px;
-    height: 36px;
-    flex-shrink: 0;
-    filter: brightness(1.75);
-}
-/* 정보 */
-.info-box {
-    background-color: #1a1a2e;
-    color: #fff;
-    border-left: 5px solid #5a4bff;
-}
-/* 경고 */
-.warning-box {
-    background-color: #1a1a2e;
-    color: #fff;
-    border-left: 5px solid #ff6f3a;
-}
-/* 팁 */
-.tip-box {
-    background-color: #1a1a2e;
-    color: #fff;
-    border-left: 5px solid #ffb732;
+
+#SIDEBAR {
+   height: calc(100% - 110px);
+   min-height: 0;
+   background: var(--background-side);
+   border-radius: 12px;
+   display: flex;
+   flex-direction: column;
+   gap: 12px;
+   padding: 1rem;
+   margin-bottom: 50px;
+   transition: flex .1s ease;
 }
 
-.sidebar {
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
-    border-right: 1px solid rgba(255, 255, 255, 0.03);
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    width: clamp(120px, 30%, 275px);
-    padding: 1rem;
-    transition: flex 0.2s ease;
+
+#PAGES {
+   flex: 1;
+   min-height: 0;
+   overflow-x: hidden;
+   overflow-y: auto;
+   margin-bottom: 24px;
+}
+#PAGES::-webkit-scrollbar {width: 12px;}
+#PAGES::-webkit-scrollbar-track {background: var(--background-side); border-radius: 4px;}
+#PAGES::-webkit-scrollbar-thumb {background-color: var(--accent); border-radius: 4px}
+#PAGES::-webkit-scrollbar-thumb:hover {background-color: var(--accent-light)}
+
+.SIDE_ITEM {
+   display: block;
+   padding: 8px 12px;
+   margin: 4px 10px;
+   border-radius: 6px;
+   cursor: pointer;
+   color: var(--content);
+   text-decoration: none;
+   transition: background .1s;
+}
+.SIDE_ITEM:hover {
+   background: var(--accent-alpha);
+   border-left: 4px solid var(--accent);
+   transition: .125s ease;
+}
+.SIDE_ITEM[data-slug="null"]:hover {
+   pointer-events: none;
+   cursor: default;
+   background: rgba(0,0,0,0);
+}
+.SIDE_ITEM.active {
+   background: var(--accent-light-alpha);
+   border-left: 4px solid var(--accent-light);
+   transition: .3s ease;
 }
 
-/* minecrafter font */
-.footer {
-    opacity: 0.6;
-    font-size: 12px;
-    color: var(--muted);
-    margin-bottom: 75px;
-    font-family: "Minecraft-Event";
-    align-self: flex-end;
+.CONTENT {
+   flex: 1;
+   padding-left: 20px;
+   overflow-y: auto;
+   margin-bottom: 70px;
+}
+.CONTENT::-webkit-scrollbar {width: 16px;}
+.CONTENT::-webkit-scrollbar-track {background: var(--background-alpha); border-radius: 4px;}
+.CONTENT::-webkit-scrollbar-thumb {background-color: var(--accent); border-radius: 4px}
+.CONTENT::-webkit-scrollbar-thumb:hover {background-color: var(--accent-light)}
+
+
+#TITLE {
+   font-size: 40px;
+   color: var(--title);
+}
+#SUBTITLE {
+   font-size: 28px;
+   margin-top: -24px;
+   margin-bottom: 28px;
+   color: var(--subtitle);
 }
 
-.search {
-    width: 100%;
-    padding: 10px 12px;
-    border-radius: 16px;
-    background: var(--glass);
-    color: var(--muted);
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    outline: none;
+#ARTICLE {
+   min-width: auto;
+   overflow-x: hidden;
+   background: var(--background);
+   padding: 22px
 }
-.search:focus {
-    border-color: var(--accent-green);
+#ARTICLE a {
+   color: var(--accent);
+}
+#ARTICLE a:hover {
+   transition: .1s ease;
+   color: var(--accent-light);
+}
+#ARTICLE :not(pre) > code {
+   background: var(--background-pre);
+   font-family: 'D2Coding';
+   color: var(--content-code);
+   padding: .2em .4em;
+   border-radius: 6px;
+   font-size: .9em;
+}
+#ARTICLE pre {
+   cursor: copy;
+   padding:12px;
+   border-radius:8px;
+   overflow:auto;
+   font-family: 'D2Coding';
+   background: var(--background-pre);
+   font-size: 14px;
+}
+#ARTICLE pre::-webkit-scrollbar {width: 8px; height: 10px;}
+#ARTICLE pre::-webkit-scrollbar-track {background: rgba(255, 255, 255, 0.05); border-radius: 4px}
+#ARTICLE pre::-webkit-scrollbar-thumb {background-color: var(--accent); border-radius: 4px}
+#ARTICLE pre::-webkit-scrollbar-thumb:hover {background-color: var(--accent-light)}
+
+#ARTICLE img:not(.EMOJI), video {
+   display: block;
+   max-width: 100%;
+   height: auto;
+   margin: 12px 0;
+   border-radius: 8px;
+   object-fit: contain;
+}
+img.EMOJI {
+   display: inline-block;
+   max-width: 100%;
+   height: 20px;
+   border-radius: 8px;
+   object-fit: contain;
+   vertical-align: middle;
 }
 
-/* pages list */
-.pages {
-    overflow-x: hidden;
-    overflow-y: auto;
-    margin-bottom: 32px;
+.BOX {
+   display: flex;
+   gap: 6px;
+   align-items: center;
+   padding: 12px 8px;
+   border-radius: 8px;
+   margin: 8px 0;
+   white-space: pre-wrap;
 }
-.pages::-webkit-scrollbar {
-    width: 12px;
+.BOX_ICON {
+   width: 36px;
+   height: 36px;
+   flex-shrink: 0;
+   filter: brightness(1.75);
 }
-.pages::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 4px;
+.BOX_TEXT {font-family: 'GMarketSans'}
+.BOX_warning {
+   background-color: var(--background-light);
+   border-left: 5px solid var(--content-warning);
 }
-.pages::-webkit-scrollbar-thumb {
-    background-color: var(--accent);
-    border-radius: 4px;
+.BOX_info {
+   background-color: var(--background-light);
+   border-left: 5px solid var(--content-info);
 }
-.pages::-webkit-scrollbar-thumb:hover {
-    background-color: var(--accent-light);
-}
-.page-item {
-    display: block;
-    padding: 8px 12px;
-    margin: 4px 0;
-    border-radius: 6px;
-    cursor: pointer;
-    color: #cfe3ff;
-    text-decoration: none;
-    transition: background 0.2s;
-}
-.page-item:hover {
-    background: rgba(179, 136, 255, 0.1);
-    color: #fff;
-}
-.page-item[data-slug="null"]:hover {
-    pointer-events: none;
-    cursor: default;
-    background: rgba(0, 0, 0, 0);
-}
-.page-item.active {
-    background: rgba(179, 136, 255, 0.3);
-    border-left: 4px solid var(--accent);
+.BOX_tip {
+   background-color: var(--background-light);
+   border-left: 5px solid var(--content-tip);
 }
 
-/* content */
-.content {
-    flex: 1;
-    padding: 28px;
-    overflow-x: hidden;
-    padding-bottom: 128px;
+.ANNOTATION {
+   font-weight: bold;
+   cursor: help;
+   position: relative;
+   display: block;
+   font-size: 32px;
+   background-color: var(--background-light);
+   padding: 12px 12px;
+   margin-bottom: 12px;
+   border-left: 5px solid;
+   border-radius: 4px;
+   font-family: 'Minecraft-Event';
 }
-.content::-webkit-scrollbar {
-    width: 16px;
+.ANNOTATION.DEPRECATED {border-color: #ff5555;}
+.ANNOTATION.TODO {border-color: #ffcc00;}
+.ANNOTATION.NOTE {border-color: #55ff55;}
+
+#ARTICLE details {
+   background: var(--background-light);
+   border-left: 4px solid var(--accent-green);
+   border-radius: 6px;
+   padding: 8px 12px;
+   line-height: 1.6;
+   margin: 12px 0;
+   transition: background 0.3s;
 }
-.content::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 4px;
-    margin-bottom: 75px;
+#ARTICLE details summary {
+   color: white;
+   padding-left: 3px;
+   cursor: pointer;
+   font-weight: bold;
 }
-.content::-webkit-scrollbar-thumb {
-    background-color: var(--accent);
-    border-radius: 4px;
+#ARTICLE details summary:hover span {
+   color: var(--background);
+   background-color: var(--accent-cyan);
+   padding: 0 2px;
+   border-radius: 8px;
+   transition: background-color 0.1s ease;
 }
-.content::-webkit-scrollbar-thumb:hover {
-    background-color: var(--accent-light);
+#ARTICLE details p {
+   color: var(--subtitle);
+   margin: 6px 0 0 0;
 }
 
-.article-head {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    margin-bottom: 14px;
+#ARTICLE details summary {
+   list-style: none;
+   cursor: pointer;
 }
-.article-head h2 {
-    margin: 0;
-    font-size: 36px;
-    color: #fff;
+#ARTICLE details summary::-webkit-details-marker {
+   display: none;
 }
-.subtitle {
-    font-size: 16px;
-    color: var(--muted);
+#ARTICLE details summary::before {
+   content: "";
+   display: inline-block;
+   width: 18px;
+   height: 36px;
+   margin-top: 18px;
+   margin-right: 6px;
+   background-image: url("assets/img/emoji/close.png");
+   background-size: cover;
+   vertical-align: middle;
+   filter: brightness(1.5);
 }
-.meta {
-    color: var(--muted);
-    font-size: 13px;
-}
-
-.article {
-    min-width: auto;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.01), rgba(255, 255, 255, 0));
-    padding: 22px;
-    border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.02);
-    color: #eaf4ff;
-    line-height: 1.7;
+#ARTICLE details[open] summary::before {
+   background-image: url("assets/img/emoji/open.png");
 }
 
-/* markdown elements */
-.article h1 {
-    font-size: 32px;
+#ARTICLE table {
+   max-width: 800px;
+   border-collapse: collapse;
+   margin: -10px 0;
+   margin-bottom: 8px;
+   background: var(--background-light);
+   border-radius: 12px;
+   overflow: hidden;
 }
-.article h2 {
-    font-size: 28px;
+#ARTICLE th {
+   background: var(--background-pre);
+   font-weight: bold;
 }
-.article h3 {
-    font-size: 24px;
+#ARTICLE td, th {
+   padding: 10px 14px;
+   border-bottom: 1px solid var(--background-alpha);
+   font-size: 0.95em;
+   color: var(--title);
+   text-align: left;
 }
-.article h4 {
-    font-size: 20px;
+#ARTICLE tr:hover td {
+   background: var(--background-side);
+   cursor: cell;
 }
-.article h5 {
-    font-size: 16px;
-}
-
-.article hr {
-    border: none;
-    height: 1px;
-    background-color: rgba(170, 179, 198, 0.3);
-}
-
-.article pre > code {
-    background: none;
-    padding: 0;
-}
-
-.article pre::-webkit-scrollbar {
-    width: 8px;
-    height: 10px;
-}
-.article pre::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.125);
-    border-radius: 4px;
-}
-.article pre::-webkit-scrollbar-thumb {
-    background-color: var(--accent);
-    border-radius: 4px;
-}
-.article pre::-webkit-scrollbar-thumb:hover {
-    background-color: var(--accent-light);
-}
-
-.article pre {
-    padding: 12px;
-    border-radius: 8px;
-    overflow: auto;
-    font-family: "D2Coding";
-    background: var(--code-card) !important;
-}
-.article code {
-    background: rgba(135, 131, 120, 0.15);
-    font-family: "D2Coding";
-    color: rgba(255, 131, 120, 0.95);
-    padding: 0.2em 0.4em;
-    border-radius: 6px;
-    font-size: 0.9em;
-}
-
-/* 코드 블록 복사 버튼 */
-.copy-btn:hover {
-    transform: scale(1.1);
-}
-.copy-btn:active {
-    transform: scale(0.95);
-}
-.copy-icon {
-    width: 18px;
-    height: 18px;
-}
-.copy-btn.copied .copy-icon {
-    transition: 0.2s ease;
-    transform: rotate(360deg) scale(1.4);
-}
-.copy-btn {
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    width: 32px;
-    height: 32px;
-    padding: 4px;
-    border: none;
-    border-radius: 6px;
-    background: var(--accent-green);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    z-index: 10;
-    transition: none;
-}
-
-.article a {
-    color: var(--accent);
-    text-decoration: underline;
-}
-
-.article blockquote {
-    position: relative;
-    margin: 0 0 1em 0;
-    padding: 0.4em 0.5em 0.4em 2.5em;
-    border-left: 4px solid var(--accent);
-    background: var(--card);
-    border-radius: 10px;
-    color: white;
-    line-height: 1.6;
-    font-family: "GimhaeGaya";
-}
-.article blockquote::before {
-    content: "";
-    position: absolute;
-    left: 0.45em;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 1.5em;
-    height: 1.5em;
-    background-image: url("");
-    background-size: contain;
-    background-repeat: no-repeat;
-}
-
-.article details {
-    background: rgba(79, 70, 229, 0.05);
-    border-left: 4px solid var(--accent-green);
-    border-radius: 6px;
-    padding: 8px 12px;
-    line-height: 1.6;
-    margin: 12px 0;
-    transition: background 0.3s;
-}
-.article details summary {
-    color: white;
-    padding-left: 3px;
-    cursor: pointer;
-    font-weight: bold;
-}
-.article details summary:hover span {
-    color: var(--bg);
-    background-color: rgba(54, 254, 173, 0.85);
-    padding: 0 2px;
-    border-radius: 2px;
-    transition: background-color 0.1s ease;
-}
-.article details p {
-    color: #cfe6ff;
-    margin: 6px 0 0 0;
-}
-/* 기본 화살표 제거 */
-.details summary {
-    list-style: none;
-    cursor: pointer;
-}
-.details summary::-webkit-details-marker {
-    display: none;
-}
-/* 아이콘 추가 */
-.details summary::before {
-    content: "";
-    display: inline-block;
-    width: 18px;
-    height: 36px;
-    margin-top: 18px;
-    margin-right: 6px;
-    background-image: url("assets/img/emoji/close.png");
-    background-size: cover;
-    vertical-align: middle;
-    filter: brightness(1.75);
-}
-.details[open] summary::before {
-    background-image: url("assets/img/emoji/open.png");
-}
-
-.article a {
-    color: var(--accent-light);
-    text-decoration: underline;
-    transition: color 0.2s;
-}
-.article a:hover {
-    color: var(--accent-hover);
-}
-
-.article table {
-    max-width: 800px;
-    border-collapse: collapse;
-    margin: 1em 0;
-    background: var(--table-bg);
-    border-radius: 12px;
-    overflow: hidden;
-}
-.article th {
-    background: var(--th-bg);
-    font-weight: bold;
-}
-.article td,
-th {
-    padding: 10px 14px;
-    border-bottom: 1px solid var(--border-color);
-    font-size: 0.95em;
-    color: var(--text-color);
-    text-align: left;
-}
-.article tr:hover td {
-    background: var(--hover-bg);
-}
-.article tr:last-child td {
-    border-bottom: none;
-}
-
-.article img:not(.emoji, .latex, .copy-icon),
-video {
-    display: block;
-    max-width: 100%;
-    height: auto;
-    margin: 12px 0;
-    border-radius: 8px;
-    object-fit: contain;
-}
-
-.emoji {
-    display: inline-block;
-    vertical-align: middle;
-    width: 1.25em;
-    height: 1.25em;
-}
-
-@media (max-width: 400px) {
-    .article table {
-        font-size: 0.85em;
-    }
-    .article td {
-        padding: 8px 10px;
-    }
-}
-
-::selection {
-    background: #4fd1c5;
-    color: #0b1220;
-}
-
-/* 모바일 사이드바 토글 버튼 */
-.sidebar-toggle {
-    display: none;
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 56px;
-    height: 56px;
-    border-radius: 50%;
-    background: var(--accent);
-    border: none;
-    color: white;
-    font-size: 24px;
-    cursor: pointer;
-    z-index: 1001;
-    box-shadow: 0 4px 12px rgba(90, 75, 255, 0.4);
-    transition: transform 0.2s, background 0.2s;
-}
-.sidebar-toggle:hover {
-    transform: scale(1.1);
-    background: var(--accent-light);
-}
-.sidebar-toggle:active {
-    transform: scale(0.95);
-}
-
-/* 모바일 오버레이 */
-.sidebar-overlay {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 999;
-    backdrop-filter: blur(2px);
-}
-.sidebar-overlay.show {
-    display: block;
-}
-
-/* 모바일 반응형 */
-@media (max-width: 768px) {
-    .sidebar-toggle {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .sidebar {
-        position: fixed;
-        top: 60px;
-        left: 0;
-        width: 280px;
-        height: calc(100vh - 60px);
-        transform: translateX(-100%);
-        transition: transform 0.3s ease;
-        z-index: 1000;
-        background: linear-gradient(180deg, #0b1220 0%, #0f1724 100%);
-        border-right: 1px solid var(--accent);
-    }
-
-    .sidebar.show {
-        transform: translateX(0);
-    }
-
-    .content {
-        width: 100%;
-        padding: 16px;
-    }
-
-    .article-head h2 {
-        font-size: 24px;
-    }
-
-    .article {
-        padding: 14px;
-    }
-
-    .article h1 {
-        font-size: 24px;
-    }
-    .article h2 {
-        font-size: 20px;
-    }
-    .article h3 {
-        font-size: 18px;
-    }
-
-    .footer {
-        font-size: 10px;
-        margin-bottom: 40px;
-    }
-
-    .search {
-        font-size: 14px;
-        padding: 8px 10px;
-    }
-
-    .page-item {
-        padding: 10px 12px;
-        font-size: 14px;
-    }
-
-    .box {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .annotation:not(.article span) {
-        font-size: 20px;
-    }
+#ARTICLE tr:last-child td {
+   border-bottom: none;
 }

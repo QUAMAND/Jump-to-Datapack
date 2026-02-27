@@ -22,10 +22,10 @@
 <br/>
 
 ### 총 관리자
-- [[:quam12: <span style="font-family:Minecraft-Event"/>QUAM12](https://github.com/QUAMAND)]
+- [[:quam12: <span style="font-family:Minecraft-Event"/>QUAMAND](https://github.com/QUAMAND)]
 
 ### 편집자
-- [[:quam12: <span style="font-family:Minecraft-Event"/>QUAM12](https://github.com/QUAMAND)]
+- [[:quam12: <span style="font-family:Minecraft-Event"/>QUAMAND](https://github.com/QUAMAND)]
 
 ### 소스 코드
 :::info

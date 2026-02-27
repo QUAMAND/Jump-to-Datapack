@@ -1,0 +1,95 @@
+#JAR_SEARCH {
+   overflow-x: hidden;
+   overflow-y: auto;
+   background: var(--background);
+   border: 2px solid var(--accent);
+   border-radius: 12px;
+   padding: 0px 20px;
+   width: 100%;
+   margin-bottom: 7%;
+   align-items: center;
+   margin-top: 20px;
+   box-shadow: 0 2px 15px var(--subtitle);
+   color: var(--title);
+   transition: transform .2s ease, box-shadow .2s ease;
+}
+#JAR_SEARCH::-webkit-scrollbar {width: 12px;}
+#JAR_SEARCH::-webkit-scrollbar-track {background: var(--background-side); border-radius: 4px;}
+#JAR_SEARCH::-webkit-scrollbar-thumb {background-color: var(--accent); border-radius: 4px}
+#JAR_SEARCH::-webkit-scrollbar-thumb:hover {background-color: var(--accent-light)}
+
+#JAR_SEARCH h2 {
+   color: var(--accent);
+   font-size: 3rem;
+   border-bottom: 1px solid var(--subtitle);
+}
+
+#JAR_SEARCH label {
+   display: block;
+   font-size: 1rem;
+   margin-bottom: 4px;
+   margin-top: 16px;
+   color: var(--title)
+}
+
+#JAR_SEARCH .JQL_INPUT {
+   box-sizing: border-box;
+   width: 100%;
+   padding: 8px 10px;
+   border: 2px solid var(--accent);
+   border-radius: 12px;
+   background-color: var(--background);
+   color: var(--subtitle);
+   font-size: .95em;
+   outline: none;
+   transition: border .2s, background .2s;
+}
+#JAR_SEARCH select.JQL_INPUT {
+   cursor: pointer;
+}
+#JAR_SEARCH .JQL_INPUT:focus {
+   border: 2px solid var(--content);
+}
+
+#DOWNLOADS {
+   cursor: pointer;
+   padding: 10px 16px;
+   margin-top: 12px;
+   margin-bottom: 16px;
+   background-color: transparent;
+   color: var(--title);
+   font-weight: bold;
+   border: 1px solid var(--accent);
+   border-radius: 12px;
+   transition: background .3s, transform .2s;
+}
+#DOWNLOADS:hover {
+   border-color: var(--content);
+}
+
+#VERSION_LIST {
+   cursor: pointer;
+   display: none;
+   max-height: 250px;
+   overflow-x: hidden;
+   overflow-y: auto;
+   list-style: none;
+   margin: 4px 0 0 0;
+   border: 1px solid var(--accent);
+   border-radius: 6px;
+   background-color: var(--background);
+}
+#VERSION_LIST::-webkit-scrollbar {width: 12px;}
+#VERSION_LIST::-webkit-scrollbar-track {background: var(--background-side); border-radius: 4px;}
+#VERSION_LIST::-webkit-scrollbar-thumb {background-color: var(--accent); border-radius: 4px}
+#VERSION_LIST::-webkit-scrollbar-thumb:hover {background-color: var(--accent-light)}
+#VERSION_LIST li {
+   margin-left: -30px;
+   border-bottom: 1px solid var(--subtitle);
+   padding: 10px 0px;
+   transition: background .2s;
+}
+#VERSION_LIST li:hover {
+   background-color: var(--background);
+   color: var(--accent-light);
+}

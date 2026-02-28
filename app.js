@@ -147,6 +147,7 @@ async function LOAD_PAGE(slug) {
 
       EMOJI_IN()
       ANNOTATION_IN()
+      LINK_IN()
       const q = SEARCH.value.trim().toLowerCase()
       if (q) HIGHLIGHT(q)
    } catch (e) {

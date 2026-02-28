@@ -28,7 +28,7 @@
    #TOP_TITLE {
       white-space: nowrap;
       transition: .1s ease;
-      font-size: clamp(10px, 5.5vw, 40px);
+      font-size: clamp(20px, 5vw, 60px);
    }
    #SIDEBAR {
       background: linear-gradient(180deg, var(--background), var(--background-pre));

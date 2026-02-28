@@ -130,53 +130,46 @@ body {
 #MORE_LIST::-webkit-scrollbar-thumb {background-color: var(--accent); border-radius: 4px}
 #MORE_LIST::-webkit-scrollbar-thumb:hover {background-color: var(--accent-light)}
 
-#TITLE_GROUP {
+#TOP_TITLE {
    position: relative;
    display: flex;
    align-items: center;
-   display: flex;
-   align-items: center;
+   cursor: pointer;
+   top: 3px;
+   color: var(--title);
+   transition: .1s ease;
+   font-family: 'Minecraft-Event';
+   font-size: clamp(20px, 4vw, 55px);
 }
-#TITLE_GROUP::after {
-   content: 'Jump ↔ Dive 문서를 전환합니다.';
+#TOP_TITLE::after,
+#HOME_TITLE::after {
    position: absolute;
-   top: 100%;
+   top: 110%;
    left: 50%;
    transform: translateX(-50%);
    background: var(--background-light);
-   color: var(--subtitle);
+   color: var(--accent-cyan);
    font-size: 14px;
    padding: 4px 10px;
    border-radius: 8px;
    white-space: nowrap;
    opacity: 0;
+   pointer-events: none;
    transition: opacity .2s ease;
 }
-#TITLE_GROUP:hover::after {
+#TOP_TITLE:hover::after,
+#HOME_TITLE:hover::after {
    opacity: 1;
+   visibility: visible;
 }
-.TOP_TITLE {
-   cursor: pointer;
-   font-family: 'Minecraft-Event';
-   position: relative;
-   top: 3px;
-   transform: none;
-   color: var(--title);
-   transition: .1s ease;
-   font-size: clamp(10px, 5.5vw, 40px);
-   align-items: center;
-   justify-self: center;
+#TOP_TITLE:has(#HOME_TITLE:hover)::after {
+   opacity: 0;
+   visibility: hidden;
 }
 
-/* 로고 */
-#ICON {
-   width: clamp(10px, 5.5vw, 56px);
-   height: clamp(10px, 5.5vw, 56px);
-   align-items: center;
-   justify-self: center;
-   margin-top: -5px;
-   cursor: pointer;
-}
+/* 개별 문구 설정 */
+#TOP_TITLE::after {content: 'Jump ↔ Dive 문서를 전환합니다.';}
+#HOME_TITLE::after {content: '메인 페이지로 이동합니다.';}
 
 /* 진행 바 */
 #PROGRESS {

@@ -5,7 +5,6 @@ const ARTICLE = document.getElementById('ARTICLE')
 const TITLE = document.getElementById('TITLE')
 const SUBTITLE = document.getElementById('SUBTITLE')
 const TOP_TITLE = document.getElementById('TOP_TITLE')
-const ICON = document.getElementById('ICON')
 
 /** 진행 바
  * 스크롤 시 표시될 진행 바입니다.
@@ -249,7 +248,6 @@ TOP_TITLE.addEventListener('click', c => {
    mode = MODES[modeN-1]
    location.hash = modeN
    TOP_TITLE.textContent = MODES_ID[modeN-1]
-   ICON.src = "assets/"+MODES[modeN]+".svg"
 })
 
 window.addEventListener('hashchange', MODE_CHANGE)
@@ -262,7 +260,6 @@ function MODE_CHANGE() {
    mode = MODES[modeN]
    path = "docs/" + modeN + "/pages.json"
    TOP_TITLE.textContent = MODES_ID[modeN]
-   ICON.src = "assets/"+MODES[modeN]+".svg"
    LOADING()
 }
 

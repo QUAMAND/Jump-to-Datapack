@@ -1,6 +1,6 @@
 const MORE_BTN = document.getElementById('MORE_BTN')
 const MORE_LIST = document.getElementById('MORE_LIST')
-const HOME_BTN = document.getElementById('HOME_BTN')
+const HOME_TITLE = document.getElementById('HOME_TITLE')
 
 /** MORE_BTN
  * 추가 옵션을 표시하는 버튼을 설정합니다.
@@ -21,8 +21,8 @@ document.addEventListener('click', c => {
 /** HOME_BTN
  * 메인 페이지로 이동합니다. #1
  */
-if (HOME_BTN) {
-   HOME_BTN.addEventListener('click', c => {
-      location.href = "/Jump-to-Datapack/"
+if (HOME_TITLE) {
+   HOME_TITLE.addEventListener('click', c => {
+      location.href = "#1"
    })
 }

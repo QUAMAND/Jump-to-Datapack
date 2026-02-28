@@ -1,0 +1,31 @@
+body {
+   margin:0;
+}
+
+.TOOLS {
+   display:flex;
+   height:100vh;
+}
+
+.TOOLS_MENU {
+   width:220px;
+   border-right:1px solid #ddd;
+   padding:10px;
+}
+
+.TOOL_BTN {
+   display:block;
+   padding:8px;
+   margin-bottom:5px;
+   cursor:pointer;
+   border-radius:6px;
+}
+
+.TOOL_BTN.active {
+   background:#eee;
+}
+
+.TOOLS_VIEW {
+   flex:1;
+   padding:20px;
+}

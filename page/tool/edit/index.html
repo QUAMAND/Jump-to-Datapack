@@ -4,15 +4,15 @@
    <base href="../../../">
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Calculator</title>
-   <link rel="icon" href="assets/img/page/calc.png"/>
+   <title>Editor</title>
+   <link rel="icon" href="assets/img/page/edit.png"/>
    <link rel="stylesheet" href="style.css"/>
-   <link rel="stylesheet" href="page/tool/calc/calc.css"/>
+   <link rel="stylesheet" href="page/tool/edit/edit.css"/>
 </head>
 <body>
    <div id="TOPBAR">
       <div id="TOP_TITLE">
-         <span id="HOME_TITLE">Calculator</span>
+         <span id="HOME_TITLE">Editor</span>
       </div>
       <div id="MORE_BTN">
          <svg viewBox="0 0 8 8" width="24" height="24" shape-rendering="crispEdges" xmlns="http://www.w3.org/2000/svg">
@@ -31,7 +31,7 @@
       <div id="MORE_LIST">
          <a href="./index.html"><img class="EMOJI" src="assets/icon.png"/> Jump to Datapack</a>
          <a href="./jar.html"><img class="EMOJI" src="assets/img/page/jar.png"/> JAR downloads</a>
-         <a href="page/tool/edit/index.html"><img class="EMOJI" src="assets/img/page/edit.png"/> Editors</a>
+         <a href="page/tool/calc/index.html"><img class="EMOJI" src="assets/img/page/calc.png"/> Calculators</a>
          <br/>
          <a href="https://www.minecraft.net" target="_blank"><img class="EMOJI" src="assets/img/emoji/launcher.png"/> minecraft.net</a>
          <a href="https://minecraft.wiki" target="_blank"><img class="EMOJI" src="https://minecraft.wiki/images/Wiki.png"/> minecraft.wiki</a>
@@ -48,14 +48,15 @@
    </div>
 
    <div class="APP">
-      <div class="CALCS">
-         <aside class="CALC_SIDEBAR" id="CALC_MENU"></aside>
-         <main class="CALC_VIEW" id="CALC_VIEW"></main>
+      <div class="EDITS">
+         <aside class="EDIT_SIDEBAR" id="EDIT_MENU"></aside>
+         <main class="EDIT_VIEW" id="EDIT_VIEW"></main>
       </div>
       </main>
    </div>
 
+   <script src="https://cdn.jsdelivr.net/npm/compression-streams-polyfill"></script>
    <script src="all.js"></script>
-   <script type="module" src="page/tool/calc/main.js"></script>
+   <script type="module" src="page/tool/edit/main.js"></script>
 </body>
 </html>

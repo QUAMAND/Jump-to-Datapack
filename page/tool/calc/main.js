@@ -1,41 +1,46 @@
-import XP from "./type/xp.js";
-import Distance from "./type/distance.js";
+import ChunkPos from "./type/ChunkPos.js"
+import NetherPos from "./type/NetherPos.js"
+import Color from "./type/Color.js"
 
 const tools = {
-  xp: XP,
-  distance: Distance
-};
-
-const menu = document.getElementById("menu");
-const view = document.getElementById("view");
-
-function load(name){
-  if(!tools[name]) name = "xp"; // fallback
-
-  view.innerHTML="";
-  view.appendChild(tools[name]());
-  history.pushState({}, "", `/tools/${name}`);
-  setActive(name);
+   'Chunk Pos': ChunkPos,
+   'Nether-Overworld Pos': NetherPos,
+   'Color': Color
 }
 
-function setActive(name){
-  document.querySelectorAll(".TOOL_BTN")
-    .forEach(b=>b.classList.toggle("active", b.dataset.tool===name));
+const MENU = document.getElementById("CALC_MENU")
+const VIEW = document.getElementById("CALC_VIEW")
+
+function load(name) {
+   if (!tools[name]) name = Object.keys(tools)[0]
+
+   VIEW.innerHTML = ""
+   VIEW.appendChild(tools[name]())
+   history.pushState({}, "", `?tool=${name}`)
+   setActive(name)
 }
 
-Object.keys(tools).forEach(name=>{
-  const btn=document.createElement("div");
-  btn.textContent=name;
-  btn.className="TOOL_BTN";
-  btn.dataset.tool=name;
-  btn.onclick=()=>load(name);
-  menu.appendChild(btn);
-});
+function setActive(name) {
+   document.querySelectorAll(".TOOL_ITEM").forEach(t => {
+      t.classList.toggle("active", t.dataset.tool === name)
+   })
+}
 
-const start = location.pathname.split("/")[2] || "xp";
-load(start);
+Object.keys(tools).forEach(name => {
+   const CALC_ITEM = document.createElement("div")
+
+   CALC_ITEM.textContent = name
+   CALC_ITEM.className = "TOOL_ITEM"
+   CALC_ITEM.dataset.tool = name
+   CALC_ITEM.onclick = () => load(name)
+
+   MENU.appendChild(CALC_ITEM)
+})
+
+const START = new URLSearchParams(location.search).get('tool') || Object.keys(tools)[0]
+load(START)
 
 window.onpopstate=()=>{
-  const tool = location.pathname.split("/")[2] || "xp";
-  load(tool);
-};
+   const TOOL = new URLSearchParams(location.search).get('tool') || Object.keys(tools)[0]
+   load(TOOL)
+}

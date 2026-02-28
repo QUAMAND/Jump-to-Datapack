@@ -1,0 +1,275 @@
+body { margin: 0; }
+
+.APP {
+   margin-top: 8px;
+   height: calc(100% - 100px);
+   display: flex;
+   flex-direction: column;
+}
+
+.EDITS {
+   flex: 1;
+   min-height: 0;
+   display: flex;
+}
+
+.EDIT_SIDEBAR {
+   width: 160px;
+   flex-shrink: 0;
+   height: calc(100% - 60px);
+   background: var(--background-side);
+   border-radius: 12px;
+   padding: 1rem 0;
+   display: flex;
+   flex-direction: column;
+   gap: 4px;
+   margin-bottom: 50px;
+}
+.TOOL_ITEM {
+   display: block;
+   padding: 8px 12px;
+   margin: 2px 8px;
+   border-radius: 6px;
+   cursor: pointer;
+   color: var(--content);
+   transition: background .1s;
+   user-select: none;
+}
+.TOOL_ITEM:hover {
+   background: var(--accent-alpha);
+   border-left: 4px solid var(--accent);
+}
+.TOOL_ITEM.active {
+   background: var(--accent-light-alpha);
+   border-left: 4px solid var(--accent-light);
+}
+
+.EDIT_VIEW {
+   flex: 1;
+   min-width: 0;
+   padding: 20px;
+   display: flex;
+   flex-direction: column;
+}
+
+.EDIT_VIEW.scroll {
+   overflow-y: auto;
+}
+
+.VIEWER_WRAP {
+   flex: 1;
+   min-height: 0;
+}
+
+.EDIT_BTN {
+   padding: 6px 14px;
+   border-radius: 8px;
+   border: 1px solid var(--background-light);
+   background: transparent;
+   color: var(--content);
+   cursor: pointer;
+   font-family: 'Pyeongchang';
+   transition: background .1s;
+   white-space: nowrap;
+}
+.EDIT_BTN:hover { background: var(--background-light); }
+.EDIT_BTN.accent { border-color: var(--accent); color: var(--accent-light); }
+.EDIT_BTN.accent:hover { background: var(--accent-alpha); }
+
+
+#DROP_ZONE {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   height: 100%;
+   min-height: 300px;
+   border: 3px dashed var(--background-light);
+   border-radius: 16px;
+   cursor: pointer;
+   transition: border .2s, background .2s;
+}
+#DROP_ZONE:hover, #DROP_ZONE.drag {
+   border-color: var(--accent);
+   background: var(--accent-alpha);
+}
+#DROP_INNER {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   gap: 12px;
+   color: var(--subtitle);
+   pointer-events: none;
+   font-size: clamp(0.9em, 2vw, 1.1em);
+}
+
+#NBT_EDITOR {
+   display: flex;
+   flex-direction: column;
+   height: 100%;
+   gap: 12px;
+}
+#NBT_TOPBAR {
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   padding: 10px 16px;
+   background: var(--background-side);
+   border-radius: 10px;
+   flex-wrap: wrap;
+   gap: 8px;
+}
+#NBT_FILENAME {
+   font-family: 'D2Coding';
+   color: var(--accent-light);
+}
+#NBT_ACTIONS {
+   display: flex;
+   gap: 8px;
+   flex-wrap: wrap;
+}
+#NBT_TREE {
+   flex: 1;
+   overflow-y: auto;
+   background: var(--background-side);
+   border-radius: 10px;
+   padding: 12px;
+}
+#NBT_TREE::-webkit-scrollbar {width: 16px;}
+#NBT_TREE::-webkit-scrollbar-track {background: var(--background-alpha); border-radius: 4px;}
+#NBT_TREE::-webkit-scrollbar-thumb {background-color: var(--accent); border-radius: 4px}
+#NBT_TREE::-webkit-scrollbar-thumb:hover {background-color: var(--accent-light)}
+.NBT_ROW { margin: 2px 0; }
+.NBT_HEADER {
+   display: flex;
+   align-items: center;
+   gap: 6px;
+   padding: 4px 8px;
+   border-radius: 6px;
+   cursor: pointer;
+   user-select: none;
+}
+.NBT_HEADER:hover { background: var(--accent-alpha); }
+.NBT_ARROW { font-size: 10px; color: var(--subtitle); width: 12px; }
+.NBT_KEY { color: var(--accent-light); font-family: 'D2Coding'; font-size: 0.9em; }
+.NBT_COUNT { color: var(--subtitle); font-size: 0.8em; margin-left: 4px; }
+.NBT_TYPE {
+   color: var(--subtitle);
+   font-size: 0.75em;
+   padding: 1px 6px;
+   background: var(--background-pre);
+   border-radius: 4px;
+   margin: 0 6px;
+}
+.NBT_ICON { font-size: 14px; }
+.NBT_LEAF {
+   display: flex;
+   align-items: center;
+   gap: 6px;
+   padding: 3px 8px;
+   border-radius: 6px;
+}
+.NBT_LEAF:hover { background: var(--background-light); }
+.NBT_INPUT {
+   flex: 1;
+   max-width: 300px;
+   padding: 4px 8px !important;
+   font-family: 'D2Coding';
+   font-size: 0.9em;
+}
+
+
+/* 3D 뷰어 */
+.VIEWER_WRAP {
+   display: flex;
+   flex-direction: column;
+   height: 100%;
+   gap: 8px;
+}
+
+#NBT3D_DROP {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   height: 100%;
+   min-height: 300px;
+   border: 3px dashed var(--background-light);
+   border-radius: 16px;
+   cursor: pointer;
+   transition: border .2s, background .2s;
+}
+#NBT3D_DROP:hover, #NBT3D_DROP.drag {
+   border-color: var(--accent);
+   background: var(--accent-alpha);
+}
+#NBT3D_INNER {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   gap: 12px;
+   color: var(--subtitle);
+   pointer-events: none;
+}
+#NBT3D_INPUT {
+   display: none;
+}
+
+#NBT3D_WRAP {
+   display: none;
+   flex-direction: column;
+   height: 100%;
+   gap: 8px;
+}
+#NBT3D_TOPBAR {
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   flex-wrap: wrap;
+   gap: 8px;
+   padding: 10px 16px;
+   background: var(--background-side);
+   border-radius: 10px;
+}
+#NBT3D_INFO {
+   color: var(--subtitle);
+   font-size: 0.9em;
+}
+#NBT3D_LEGEND {
+   display: flex;
+   gap: 10px;
+   font-size: 0.8em;
+   color: var(--subtitle);
+}
+#NBT3D_BTNS {
+   display: flex;
+   gap: 8px;
+}
+
+#NBT3D_CANVAS {
+   flex: 1;
+   border-radius: 12px;
+   overflow: hidden;
+   position: relative;
+   min-height: 400px;
+}
+#NBT3D_CANVAS canvas {
+   display: block;
+}
+
+#NBT3D_TOOLTIP {
+   position: absolute;
+   bottom: 12px;
+   left: 12px;
+   background: var(--background-alpha);
+   backdrop-filter: blur(8px);
+   padding: 8px 12px;
+   border-radius: 8px;
+   font-family: 'D2Coding';
+   font-size: 0.85em;
+   color: #fff;
+   display: none;
+   border: 1px solid var(--background-light);
+   pointer-events: none;
+}
+#NBT3D_TOOLTIP.visible {
+   display: block;
+}

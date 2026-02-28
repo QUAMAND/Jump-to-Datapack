@@ -2,30 +2,124 @@ body {
    margin:0;
 }
 
-.TOOLS {
-   display:flex;
-   height:100vh;
+.CALCS {
+   flex: 1;
+   min-height: 0;
+   display: flex;
+   height: 100vh;
 }
 
-.TOOLS_MENU {
-   width:220px;
-   border-right:1px solid #ddd;
-   padding:10px;
+.CALC_SIDEBAR {
+   width: 220px;
+   padding: 10px;
+   height: calc(100% - 110px);
+   min-height: 0;
+   background: var(--background-side);
+   border-radius: 12px;
+   display: flex;
+   flex-direction: column;
+   gap: 12px;
+   padding: 1rem;
+   margin-bottom: 50px;
+   transition: flex .1s ease;
 }
 
-.TOOL_BTN {
-   display:block;
-   padding:8px;
-   margin-bottom:5px;
-   cursor:pointer;
-   border-radius:6px;
+.APP {
+   margin-top: 8px;
+   height: calc(100% - 48px);
+   display: flex;
+   flex-direction: column;
+}
+.CALC_VIEW {
+   flex: 1;
+   padding: 20px;
+   min-width: 0;
+   padding-left: 20px;
+   overflow-y: auto;
+   margin-bottom: 70px;
 }
 
-.TOOL_BTN.active {
-   background:#eee;
+.TOOL_BODY {
+   width: 100%;
 }
 
-.TOOLS_VIEW {
-   flex:1;
-   padding:20px;
+.TOOL_ITEM {
+   display: block;
+   padding: 8px 12px;
+   margin: 4px 10px;
+   border-radius: 6px;
+   cursor: pointer;
+   color: var(--content);
+   text-decoration: none;
+   transition: background .1s;
+}
+.TOOL_ITEM:hover {
+   background: var(--accent-alpha);
+   border-left: 4px solid var(--accent);
+   transition: .125s ease;
+}
+.TOOL_ITEM.active {
+   background: var(--accent-light-alpha);
+   border-left: 4px solid var(--accent-light);
+   transition: .3s ease;
+}
+
+.INPUT {
+   box-sizing: border-box;
+   width: 100%;
+   padding: 8px 10px;
+   border: 2px solid var(--accent);
+   border-radius: 12px;
+   background-color: var(--background);
+   color: var(--title);
+   font-size: .95em;
+   outline: none;
+   transition: border .2s, background .2s;
+}
+.OUTPUT {
+   display: inline;
+   min-width: 40px;
+   padding: 4px 8px;
+   margin-left: -6px;
+   background: var(--background-pre);
+   border-radius: 6px;
+   color: var(--accent-cyan);
+   font-family: 'D2Coding';
+}
+
+.CALC_TABLE {
+   border-collapse: collapse;
+}
+.CALC_TABLE th {
+   text-align: left;
+   padding: 8px 16px 8px 0;
+   color: var(--subtitle);
+   white-space: nowrap;
+}
+.CALC_TABLE td {
+   padding: 8px 0;
+   display: flex;
+   gap: 8px;
+   align-items: center;
+}
+
+.CALC_WARN {
+   display: flex;
+   align-items: center;
+   gap: 6px;
+   color: var(--content-warning);
+   font-size: 0.85em;
+   margin-top: 8px;
+}
+
+#COLOR_PICKER {
+   position: relative;
+   top: 0;
+   right: 0;
+   width: 48px;
+   height: 48px;
+   border: none;
+   background: none;
+   cursor: crosshair;
+   padding: 0;
 }

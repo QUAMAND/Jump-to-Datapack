@@ -269,7 +269,7 @@ body {
 
 .SIDE_ITEM {
    display: block;
-   padding: 8px 12px;
+   padding: 6px 6px;
    margin: 4px 10px;
    border-radius: 6px;
    cursor: pointer;

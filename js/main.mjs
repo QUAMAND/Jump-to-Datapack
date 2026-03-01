@@ -5,18 +5,18 @@ import { SEARCH_INIT } from "./Search.mjs"
 import { MODE_TOGGLE } from "./Mode.mjs"
 
 /**
- * 1. 환경 체크 (메인 페이지 여부 확인)
+ * 1. 환경 체크
  */
 const path = window.location.pathname
 const isJAR = path.endsWith('jar.html')
-const isTOOL = path.includes('/tool/')
-const isMAIN = !isJAR && !isTOOL // 둘 다 아닐 때만 메인 위키 시스템 가동
+const isTOOL = path.includes('page/tool/')
+const isMAIN = !isJAR && !isTOOL
 
 /**
- * 2. 메인 위키 전용 기능 (isMAIN일 때만 실행하여 null 에러 방지)
+ * 2. 메인 위키 전용 기능
  */
 if (isMAIN) {
-   // 진행 바 (스크롤)
+   // 진행 바
    if (DOM.CONTENT && DOM.PROGRESS) {
       DOM.CONTENT.addEventListener('scroll', () => {
          const top = DOM.CONTENT.scrollTop
@@ -25,7 +25,7 @@ if (isMAIN) {
       })
    }
 
-   // 검색어 창 단축키 (/)
+   // 검색어 창 단축키
    document.addEventListener('keydown', e => {
       if (e.key === '/' && DOM.SEARCH && document.activeElement !== DOM.SEARCH) {
          e.preventDefault()
@@ -33,7 +33,7 @@ if (isMAIN) {
       }
    })
 
-   // 상단 타이틀 클릭 시 모드 변경
+   // 모드 변경
    if (DOM.TOP_TITLE) {
       DOM.TOP_TITLE.onclick = MODE_TOGGLE
    }
@@ -58,7 +58,6 @@ function MODE_APPLY() {
  * 4. 사이트 첫 진입 (초기화)
  */
 window.addEventListener('DOMContentLoaded', () => {
-   // 공통 UI 이벤트 (메뉴, 모어 버튼) - 모든 페이지(JAR, TOOL 포함)에서 실행
    if (DOM.MENU_BTN || DOM.MORE_BTN) {
       INIT_UI_EVENTS()
    }
@@ -76,7 +75,7 @@ window.addEventListener('DOMContentLoaded', () => {
 })
 
 /**
- * 5. 주소(해시) 변경 감지
+ * 5. 주소 변경
  */
 window.addEventListener("hashchange", () => {
    if (isMAIN) {
@@ -86,7 +85,7 @@ window.addEventListener("hashchange", () => {
 })
 
 /**
- * 6. UI 이벤트 초기화 함수 (공통 영역)
+ * 6. UI 이벤트 초기화
  */
 function INIT_UI_EVENTS() {
    // 사이드바 메뉴 버튼
@@ -127,6 +126,6 @@ function INIT_UI_EVENTS() {
 
    // 홈 타이틀 클릭 시 #1로 이동
    if (DOM.HOME_TITLE) {
-      DOM.HOME_TITLE.onclick = () => { location.hash = "1" }
+      DOM.HOME_TITLE.onclick = () => { location.href = "#1" }
    }
 }

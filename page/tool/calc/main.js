@@ -16,7 +16,7 @@ function load(name) {
 
    VIEW.innerHTML = ""
    VIEW.appendChild(tools[name]())
-   history.pushState({}, "", `?tool=${name}`)
+   history.pushState({}, "", `?calc=${name}`)
    setActive(name)
 }
 

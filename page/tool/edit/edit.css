@@ -1,4 +1,4 @@
-body { margin: 0; }
+body { margin: 8 }
 
 .APP {
    margin-top: 8px;
@@ -13,18 +13,6 @@ body { margin: 0; }
    display: flex;
 }
 
-.EDIT_SIDEBAR {
-   width: 160px;
-   flex-shrink: 0;
-   height: calc(100% - 60px);
-   background: var(--background-side);
-   border-radius: 12px;
-   padding: 1rem 0;
-   display: flex;
-   flex-direction: column;
-   gap: 4px;
-   margin-bottom: 50px;
-}
 .TOOL_ITEM {
    display: block;
    padding: 8px 12px;

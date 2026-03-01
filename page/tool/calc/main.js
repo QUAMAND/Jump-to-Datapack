@@ -1,14 +1,16 @@
 import ChunkPos from "./type/ChunkPos.js"
 import NetherPos from "./type/NetherPos.js"
 import Color from "./type/Color.js"
+import EntityInFOV from "./type/EntityInFOV.js"
 
 const tools = {
    'Chunk Pos': ChunkPos,
    'Nether-Overworld Pos': NetherPos,
-   'Color': Color
+   'Color': Color,
+   'Entity Look-at Detector': EntityInFOV
 }
 
-const MENU = document.getElementById("CALC_MENU")
+const MENU = document.getElementById("SIDEBAR")
 const VIEW = document.getElementById("CALC_VIEW")
 
 function load(name) {
@@ -16,7 +18,11 @@ function load(name) {
 
    VIEW.innerHTML = ""
    VIEW.appendChild(tools[name]())
-   history.pushState({}, "", `?calc=${name}`)
+
+   const newUrl = `?calc=${name}`
+   if (location.search !== newUrl) {
+      history.pushState({}, "", newUrl)
+   }
    setActive(name)
 }
 
@@ -37,10 +43,10 @@ Object.keys(tools).forEach(name => {
    MENU.appendChild(CALC_ITEM)
 })
 
-const START = new URLSearchParams(location.search).get('tool') || Object.keys(tools)[0]
+const START = new URLSearchParams(location.search).get('calc') || Object.keys(tools)[0]
 load(START)
 
-window.onpopstate=()=>{
-   const TOOL = new URLSearchParams(location.search).get('tool') || Object.keys(tools)[0]
+window.onpopstate = () => {
+   const TOOL = new URLSearchParams(location.search).get('calc') || Object.keys(tools)[0]
    load(TOOL)
 }

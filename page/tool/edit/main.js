@@ -1,32 +1,72 @@
 import * as NBT from 'https://cdn.jsdelivr.net/npm/nbtify@2.1.0/+esm'
-import Viewer from './Viewer.js'  // ← 이게 있으면 HTML에 따로 안 넣어도 됨
+import Viewer from './Viewer.js'
 
-const VIEW = document.getElementById('EDIT_VIEW')
-const MENU = document.getElementById('EDIT_MENU')
+/**
+ * 1. 도구 정의 (계산기와 동일한 구조)
+ */
+const tools = {
+   'dat': () => CREATE_EDITOR_UI('dat'),
+   'nbt': () => CREATE_EDITOR_UI('nbt'),
+   'viewer': () => {
+      const v = Viewer();
+      VIEW.classList.remove('scroll');
+      return v;
+   }
+}
 
-// ── 사이드바 메뉴 ─────────────────────────────
-MENU.innerHTML = `
-   <div class="TOOL_ITEM active" data-tool="dat">📄 .dat Editor</div>
-   <div class="TOOL_ITEM" data-tool="nbt">📦 .nbt Editor</div>
-   <div class="TOOL_ITEM" data-tool="viewer">🧊 .nbt 3D Viewer</div>
-`
-MENU.querySelectorAll('.TOOL_ITEM').forEach(item => {
-   item.addEventListener('click', () => {
-      MENU.querySelectorAll('.TOOL_ITEM').forEach(i => i.classList.remove('active'))
-      item.classList.add('active')
-      if (item.dataset.tool === 'viewer') {
-         VIEW.classList.remove('scroll')  // 뷰어는 스크롤 없음
-         VIEW.innerHTML = ''
-         VIEW.appendChild(Viewer())
-      } else {
-         VIEW.classList.add('scroll')     // 에디터는 스크롤 있음
-         LOAD_EDITOR(item.dataset.tool)
-      }
-   })
-})
+const MENU = document.getElementById('SIDEBAR');
+const VIEW = document.getElementById('EDIT_VIEW');
 
-function LOAD_EDITOR(type) {
-   VIEW.innerHTML = `
+/**
+ * 2. 로드 및 주소 업데이트 함수
+ */
+function load(name) {
+   if (!tools[name]) name = 'dat';
+
+   VIEW.innerHTML = "";
+   VIEW.classList.add('scroll'); 
+   
+   const content = tools[name]();
+   if (content) VIEW.appendChild(content);
+
+   // 주소창 업데이트 (?edit=name)
+   const newUrl = `?edit=${name}`;
+   if (window.location.search !== newUrl) {
+      history.pushState({ tool: name }, "", newUrl);
+   }
+   
+   setActive(name);
+}
+
+function setActive(name) {
+   MENU.querySelectorAll(".TOOL_ITEM").forEach(t => {
+      t.classList.toggle("active", t.dataset.tool === name);
+   });
+}
+
+/**
+ * 3. 사이드바 메뉴 생성 (자동 생성)
+ */
+MENU.innerHTML = "";
+Object.keys(tools).forEach(name => {
+   const item = document.createElement("div");
+   const label = name === 'viewer' ? '.nbt 3D Viewer' : `.${name} Editor`;
+   
+   item.textContent = label;
+   item.className = "TOOL_ITEM";
+   item.dataset.tool = name;
+   item.onclick = () => load(name);
+
+   MENU.appendChild(item);
+});
+
+/**
+ * 4. 에디터 UI 생성 및 로직 바인딩
+ */
+function CREATE_EDITOR_UI(type) {
+   const container = document.createElement('div');
+   container.style.height = "100%";
+   container.innerHTML = `
       <div id="DROP_ZONE">
          <div id="DROP_INNER">
             <img src="assets/img/page/edit.png" width="64"/>
@@ -46,173 +86,166 @@ function LOAD_EDITOR(type) {
          </div>
          <div id="NBT_TREE"></div>
       </div>
-   `
+   `;
 
-   const DROP_ZONE  = VIEW.querySelector('#DROP_ZONE')
-   const FILE_INPUT = VIEW.querySelector('#FILE_INPUT')
-   const EDITOR    = VIEW.querySelector('#NBT_EDITOR')
-   const TREE      = VIEW.querySelector('#NBT_TREE')
-   const FILE_NAME  = VIEW.querySelector('#NBT_FILENAME')
+   const DROP_ZONE = container.querySelector('#DROP_ZONE');
+   const FILE_INPUT = container.querySelector('#FILE_INPUT');
+   const EDITOR = container.querySelector('#NBT_EDITOR');
+   const TREE = container.querySelector('#NBT_TREE');
+   const FILE_NAME = container.querySelector('#NBT_FILENAME');
 
-   let currentNBT  = null
-   let currentFile = null
+   let currentNBT = null;
+   let currentFile = null;
 
-   // Drag & Drop
-   DROP_ZONE.addEventListener('click', () => FILE_INPUT.click())
-   DROP_ZONE.addEventListener('dragover', e => { e.preventDefault(); DROP_ZONE.classList.add('drag') })
-   DROP_ZONE.addEventListener('dragleave', () => DROP_ZONE.classList.remove('drag'))
-   DROP_ZONE.addEventListener('drop', e => {
-      e.preventDefault()
-      DROP_ZONE.classList.remove('drag')
-      const file = e.dataTransfer.files[0]
-      if (file) LOAD_FILE(file)
-   })
-   FILE_INPUT.addEventListener('change', () => {
-      if (FILE_INPUT.files[0]) LOAD_FILE(FILE_INPUT.files[0])
-   })
+   // 파일 선택/드롭 이벤트
+   DROP_ZONE.onclick = () => FILE_INPUT.click();
+   DROP_ZONE.ondragover = e => { e.preventDefault(); DROP_ZONE.classList.add('drag'); };
+   DROP_ZONE.ondragleave = () => DROP_ZONE.classList.remove('drag');
+   DROP_ZONE.ondrop = e => {
+      e.preventDefault();
+      DROP_ZONE.classList.remove('drag');
+      if (e.dataTransfer.files[0]) handleLoadFile(e.dataTransfer.files[0]);
+   };
+   FILE_INPUT.onchange = () => {
+      if (FILE_INPUT.files[0]) handleLoadFile(FILE_INPUT.files[0]);
+   };
 
-   VIEW.querySelector('#BTN_OPEN').addEventListener('click', () => FILE_INPUT.click())
-   VIEW.querySelector('#BTN_SAVE').addEventListener('click', SAVE_FILE)
-   VIEW.querySelector('#BTN_EXPAND').addEventListener('click', () => toggleAll(true))
-   VIEW.querySelector('#BTN_COLLAPSE').addEventListener('click', () => toggleAll(false))
+   // 버튼 액션
+   container.querySelector('#BTN_OPEN').onclick = () => FILE_INPUT.click();
+   container.querySelector('#BTN_EXPAND').onclick = () => toggleAll(true);
+   container.querySelector('#BTN_COLLAPSE').onclick = () => toggleAll(false);
+   container.querySelector('#BTN_SAVE').onclick = handleSaveFile;
 
-   function toggleAll(open) {
-      TREE.querySelectorAll('.NBT_CHILDREN').forEach(c => {
-         c.style.display = open ? 'block' : 'none'
-         const arrow = c.previousElementSibling?.querySelector('.NBT_ARROW')
-         if (arrow) arrow.textContent = open ? '▼' : '▶'
-      })
-   }
-
-   async function LOAD_FILE(file) {
-      currentFile = file
+   async function handleLoadFile(file) {
+      currentFile = file;
       try {
-         const buffer = await file.arrayBuffer()
-         currentNBT = await NBT.read(buffer)
-         console.log(currentNBT)
-         FILE_NAME.textContent = file.name
-         DROP_ZONE.style.display = 'none'
-         EDITOR.style.display = 'flex'
-         RENDER_TREE(currentNBT.data, TREE, 0)
+         const buffer = await file.arrayBuffer();
+         currentNBT = await NBT.read(buffer);
+         FILE_NAME.textContent = file.name;
+         DROP_ZONE.style.display = 'none';
+         EDITOR.style.display = 'flex';
+         renderNBTTree(currentNBT.data, TREE, 0);
       } catch(e) {
-         alert('파일을 읽을 수 없습니다: ' + e.message)
+         alert('파일 로드 실패: ' + e.message);
       }
    }
 
-   async function SAVE_FILE() {
-      if (!currentNBT) return
+   async function handleSaveFile() {
+      if (!currentNBT) return;
       try {
          const buffer = await NBT.write(currentNBT.data, {
             rootName: currentNBT.rootName,
             endian: currentNBT.endian,
             compression: currentNBT.compression
-         })
-         const blob = new Blob([buffer])
-         const a = document.createElement('a')
-         a.href = URL.createObjectURL(blob)
-         a.download = currentFile.name
-         a.click()
+         });
+         const blob = new Blob([buffer]);
+         const a = document.createElement('a');
+         a.href = URL.createObjectURL(blob);
+         a.download = currentFile.name;
+         a.click();
       } catch(e) {
-         alert('저장 실패: ' + e.message)
+         alert('저장 실패: ' + e.message);
       }
    }
 
-   function RENDER_TREE(obj, container, depth) {
-      container.innerHTML = ''
-      for (const [key, value] of Object.entries(obj)) {
-         const row = document.createElement('div')
-         row.className = 'NBT_ROW'
-         row.style.paddingLeft = `${depth * 16}px`
+   function toggleAll(open) {
+      TREE.querySelectorAll('.NBT_CHILDREN').forEach(c => {
+         c.style.display = open ? 'block' : 'none';
+         const arrow = c.previousElementSibling?.querySelector('.NBT_ARROW');
+         if (arrow) arrow.textContent = open ? '▼' : '▶';
+      });
+   }
 
-         const type = getNBTtype(value)
+   function renderNBTTree(obj, target, depth) {
+      target.innerHTML = '';
+      for (const [key, value] of Object.entries(obj)) {
+         const row = document.createElement('div');
+         row.className = 'NBT_ROW';
+         row.style.paddingLeft = `${depth * 16}px`;
+
+         const type = getNBTtype(value);
 
          if (type === 'object' || type === 'array') {
-            const isArr = type === 'array'
-            const header = document.createElement('div')
-            header.className = 'NBT_HEADER'
+            const isArr = type === 'array';
+            const header = document.createElement('div');
+            header.className = 'NBT_HEADER';
             header.innerHTML = `
                <span class="NBT_ARROW">▶</span>
                <span class="NBT_ICON">${isArr ? '📋' : '📁'}</span>
                <span class="NBT_KEY">${key}</span>
                <span class="NBT_COUNT">${isArr ? `[${value.length}]` : `{${Object.keys(value).length}}`}</span>
-            `
-            const children = document.createElement('div')
-            children.className = 'NBT_CHILDREN'
-            children.style.display = 'none'
+            `;
+            const children = document.createElement('div');
+            children.className = 'NBT_CHILDREN';
+            children.style.display = 'none';
 
-            RENDER_TREE(isArr ? {...value} : value, children, depth + 1)
+            renderNBTTree(isArr ? {...value} : value, children, depth + 1);
 
-            header.addEventListener('click', () => {
-               const open = children.style.display !== 'none'
-               children.style.display = open ? 'none' : 'block'
-               header.querySelector('.NBT_ARROW').textContent = open ? '▶' : '▼'
-            })
+            header.onclick = () => {
+               const isOpen = children.style.display !== 'none';
+               children.style.display = isOpen ? 'none' : 'block';
+               header.querySelector('.NBT_ARROW').textContent = isOpen ? '▶' : '▼';
+            };
 
-            row.appendChild(header)
-            row.appendChild(children)
+            row.appendChild(header);
+            row.appendChild(children);
          } else {
-            row.className += ' NBT_LEAF'
+            row.classList.add('NBT_LEAF');
             row.innerHTML = `
-               <span class="NBT_ICON" style="color:var(--accent-cyan); font-family: 'Minecraft-Event'">${getIcon(type)}</span>
+               <span class="NBT_ICON" style="color:var(--accent-cyan)">${getIcon(type)}</span>
                <span class="NBT_KEY">${key}</span>
                <span class="NBT_TYPE">${type}</span>
-            `
-            const input = createInput(type, value, (newVal) => { obj[key] = newVal })
-            row.appendChild(input)
+            `;
+            const input = createInput(type, value, (val) => { obj[key] = val; });
+            row.appendChild(input);
          }
-
-         container.appendChild(row)
+         target.appendChild(row);
       }
    }
+
+   return container;
 }
 
-LOAD_EDITOR('dat')
-VIEW.classList.add('scroll')
-
-function getNBTtype(value) {
-   if (value === null) return 'null'
-   if (Array.isArray(value)) return 'array'
-   if (value instanceof Int8Array)     return 'byte[]'
-   if (value instanceof Int32Array)    return 'int[]'
-   if (value instanceof BigInt64Array) return 'long[]'
-   if (typeof value === 'object')      return 'object'
-   if (typeof value === 'bigint')      return 'long'
-   if (typeof value === 'number')      return Number.isInteger(value) ? 'int' : 'float'
-   if (typeof value === 'string')      return 'string'
-   if (typeof value === 'boolean')     return 'byte'
-   return typeof value
+/**
+ * 5. 유틸리티 함수들
+ */
+function getNBTtype(v) {
+   if (v === null) return 'null';
+   if (Array.isArray(v)) return 'array';
+   if (v instanceof Int8Array) return 'byte[]';
+   if (v instanceof Int32Array) return 'int[]';
+   if (v instanceof BigInt64Array) return 'long[]';
+   if (typeof v === 'object') return 'object';
+   if (typeof v === 'bigint') return 'long';
+   if (typeof v === 'number') return Number.isInteger(v) ? 'int' : 'float';
+   if (typeof v === 'string') return 'string';
+   return typeof v;
 }
 
-function getIcon(type) {
-   const icons = {
-      string: 'String', int: 'Int', float: 'Float', long: 'Long',
-      byte: 'Byte', 'byte[]': 'Byte[]', 'int[]': 'Int[]', 'long[]': 'Long[]'
+function getIcon(t) {
+   const i = { string:'S', int:'I', float:'F', long:'L', byte:'B' };
+   return i[t] || 'P';
+}
+
+function createInput(t, v, cb) {
+   const i = document.createElement('input');
+   i.className = 'INPUT NBT_INPUT';
+   if (t === 'byte') {
+      i.type = 'checkbox';
+      i.checked = !!v;
+      i.onchange = () => cb(i.checked ? 1 : 0);
+   } else {
+      i.type = (t === 'string') ? 'text' : 'number';
+      i.value = v?.toString() ?? '';
+      i.onchange = () => cb(t === 'string' ? i.value : (t === 'long' ? BigInt(i.value) : Number(i.value)));
    }
-   return icons[type] || '❓'
+   return i;
 }
 
-function createInput(type, value, onChange) {
-   const input = document.createElement('input')
-   input.className = 'INPUT NBT_INPUT'
+const START = new URLSearchParams(location.search).get('edit') || 'dat';
+load(START);
 
-   if (type === 'byte' || type === 'boolean') {
-      input.type = 'checkbox'
-      input.checked = !!value
-      input.addEventListener('change', () => onChange(input.checked ? 1 : 0))
-      return input
-   }
-
-   input.type = (type === 'string') ? 'text' : 'number'
-   input.value = value?.toString() ?? ''
-   if (type === 'int' || type === 'byte') input.step = '1'
-   if (type === 'float') input.step = 'any'
-   if (type === 'long') input.step = '1'
-
-   input.addEventListener('change', () => {
-      if (type === 'string') onChange(input.value)
-      else if (type === 'long') onChange(BigInt(input.value))
-      else onChange(Number(input.value))
-   })
-
-   return input
-}
+window.onpopstate = () => {
+   const t = new URLSearchParams(location.search).get('edit') || 'dat';
+   load(t);
+};

@@ -1,27 +1,10 @@
-body {
-   margin:0;
-}
+body { margin: 8 }
 
 .CALCS {
    flex: 1;
    min-height: 0;
    display: flex;
    height: 100vh;
-}
-
-.CALC_SIDEBAR {
-   width: 220px;
-   padding: 10px;
-   height: calc(100% - 110px);
-   min-height: 0;
-   background: var(--background-side);
-   border-radius: 12px;
-   display: flex;
-   flex-direction: column;
-   gap: 12px;
-   padding: 1rem;
-   margin-bottom: 50px;
-   transition: flex .1s ease;
 }
 
 .APP {
@@ -103,14 +86,15 @@ body {
    align-items: center;
 }
 
-.CALC_WARN {
+.CALC_WARN, .CALC_TIP {
    display: flex;
    align-items: center;
    gap: 6px;
-   color: var(--content-warning);
    font-size: 0.85em;
    margin-top: 8px;
 }
+.CALC_WARN {color: var(--content-warning)}
+.CALC_TIP {color: var(--content-tip)}
 
 #COLOR_PICKER {
    position: relative;

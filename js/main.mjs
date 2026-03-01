@@ -16,7 +16,7 @@ const isMAIN = !isJAR && !isTOOL
  * 2. 메인 위키 전용 기능
  */
 if (isMAIN) {
-   // 진행 바
+   /** 진행 바 */
    if (DOM.CONTENT && DOM.PROGRESS) {
       DOM.CONTENT.addEventListener('scroll', () => {
          const top = DOM.CONTENT.scrollTop
@@ -25,7 +25,7 @@ if (isMAIN) {
       })
    }
 
-   // 검색어 창 단축키
+   /** 검색어 창 단축키 */
    document.addEventListener('keydown', e => {
       if (e.key === '/' && DOM.SEARCH && document.activeElement !== DOM.SEARCH) {
          e.preventDefault()
@@ -33,7 +33,7 @@ if (isMAIN) {
       }
    })
 
-   // 모드 변경
+   /** 모드 변경 */
    if (DOM.TOP_TITLE) {
       DOM.TOP_TITLE.onclick = MODE_TOGGLE
    }
@@ -58,21 +58,20 @@ function MODE_APPLY() {
  * 4. 사이트 첫 진입 (초기화)
  */
 window.addEventListener('DOMContentLoaded', () => {
-   if (DOM.MENU_BTN || DOM.MORE_BTN) {
-      INIT_UI_EVENTS()
-   }
 
-   // 메인 위키 페이지 로직
+   INIT_UI_EVENTS();
+
+   /** 최상위 index.html */
    if (isMAIN) {
       if (!location.hash) {
-         location.hash = "1"
-         return
+         location.hash = "1";
+         return;
       }
-      MODE_APPLY()
-      SITE_LOAD()
-      if (typeof SEARCH_INIT === 'function') SEARCH_INIT()
+      MODE_APPLY();
+      SITE_LOAD();
+      if (typeof SEARCH_INIT === 'function') SEARCH_INIT();
    }
-})
+});
 
 /**
  * 5. 주소 변경
@@ -88,7 +87,7 @@ window.addEventListener("hashchange", () => {
  * 6. UI 이벤트 초기화
  */
 function INIT_UI_EVENTS() {
-   // 사이드바 메뉴 버튼
+   /** 메뉴 버튼 */
    if (DOM.MENU_BTN && DOM.SIDEBARS) {
       DOM.MENU_BTN.addEventListener('click', e => {
          e.stopPropagation()
@@ -97,7 +96,7 @@ function INIT_UI_EVENTS() {
       })
    }
 
-   // 상단 MORE 버튼
+   /** MORE 버튼 */
    if (DOM.MORE_BTN && DOM.MORE_LIST) {
       DOM.MORE_BTN.addEventListener('click', e => {
          e.stopPropagation()
@@ -106,16 +105,16 @@ function INIT_UI_EVENTS() {
       })
    }
 
-   // 외부 클릭 시 닫기
+   /** 닫기 */
    document.addEventListener('click', e => {
-      // 메뉴/사이드바 영역 외 클릭 시
+      /** 메뉴 버튼 */
       if (DOM.MENU_BTN && DOM.SIDEBARS) {
          if (!DOM.MENU_BTN.contains(e.target) && !DOM.SIDEBARS.contains(e.target)) {
             DOM.MENU_BTN.classList.remove('open')
             DOM.SIDEBARS.classList.remove('open')
          }
       }
-      // MORE 리스트 영역 외 클릭 시
+      /** MORE 버튼 */
       if (DOM.MORE_BTN && DOM.MORE_LIST) {
          if (!DOM.MORE_BTN.contains(e.target) && !DOM.MORE_LIST.contains(e.target)) {
             DOM.MORE_BTN.classList.remove('open')
@@ -124,7 +123,7 @@ function INIT_UI_EVENTS() {
       }
    })
 
-   // 홈 타이틀 클릭 시 #1로 이동
+   /** 홈 버튼 */
    if (DOM.HOME_TITLE) {
       DOM.HOME_TITLE.onclick = () => { location.href = "#1" }
    }

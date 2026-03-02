@@ -3,7 +3,7 @@ export default function JarPage() {
    container.className = 'CONTENT' // CSS 시스템의 여백을 따름
 
    container.innerHTML = `
-         <div class="TOOL_WRAPPER">
+         <div class="SUB_WRAPPER">
             <h2>JAR 다운로드</h2>
 
             <div class="BOX BOX_info">
@@ -25,7 +25,7 @@ export default function JarPage() {
                   <ul id="VERSION_LIST"></ul>
                </div>
 
-               <div id="DOWNLOAD_EXEC_BTN" class="TOOL_BTN ACCENT" style="margin-top: 20px;">
+               <div id="DOWNLOAD_EXEC_BTN" class="SUB_BTN ACCENT" style="margin-top: 20px;">
                   다운로드
                </div>
             </div>
@@ -109,9 +109,7 @@ export default function JarPage() {
                container.removeChild(a)
             })
          }
-      } catch (e) {
-         alert("정보가 없습니다: " + e)
-      }
+      } catch (e) {alert("정보가 없습니다: " + e)}
    })
 
    /** 기타 이벤트 */

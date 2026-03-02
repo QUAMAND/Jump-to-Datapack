@@ -1,7 +1,7 @@
 import { DOM } from "./DOM.mjs"
 import { STATE } from "./STATE.mjs"
 import { SITE_LOAD } from "./Loader.mjs"
-import { SEARCH_INIT } from "./Search.mjs"
+import { SEARCH } from "./Search.mjs"
 import { MODE_TOGGLE } from "./Mode.mjs"
 
 /**
@@ -59,19 +59,19 @@ function MODE_APPLY() {
  */
 window.addEventListener('DOMContentLoaded', () => {
 
-   INIT_UI_EVENTS();
+   INIT_UI_EVENTS()
 
    /** 최상위 index.html */
    if (isMAIN) {
       if (!location.hash) {
-         location.hash = "1";
-         return;
+         location.hash = "1"
+         return
       }
-      MODE_APPLY();
-      SITE_LOAD();
-      if (typeof SEARCH_INIT === 'function') SEARCH_INIT();
+      MODE_APPLY()
+      SITE_LOAD()
+      if (typeof SEARCH === 'function') SEARCH()
    }
-});
+})
 
 /**
  * 5. 주소 변경

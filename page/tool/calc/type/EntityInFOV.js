@@ -1,6 +1,6 @@
 export default function EntityInFOV() {
-   const container = document.createElement('div');
-   container.className = 'TOOL_BODY';
+   const container = document.createElement('div')
+   container.className = 'TOOL_BODY'
    
    container.innerHTML = `
       <h2 style="color:var(--title); margin-bottom:8px;">시야각 판정 계산기</h2>
@@ -38,33 +38,33 @@ export default function EntityInFOV() {
       <div class="CALC_TIP" style="margin-top:20px; line-height:1.5;">
          💡: d = 2 * sin(각도 / 2) <br>
       </div>
-   `;
+   `
 
-   const inputDeg = container.querySelector('#FOV_DEGREE');
-   const inputTag = container.querySelector('#TARGET_TAG');
-   const resDist = container.querySelector('#CALC_DIST');
-   const resCmd = container.querySelector('#RESULT_COMMAND');
-   const btnCopy = container.querySelector('#BTN_COPY');
+   const inputDeg = container.querySelector('#FOV_DEGREE')
+   const inputTag = container.querySelector('#TARGET_TAG')
+   const resDist = container.querySelector('#CALC_DIST')
+   const resCmd = container.querySelector('#RESULT_COMMAND')
+   const btnCopy = container.querySelector('#BTN_COPY')
 
    function update() {
-      const deg = parseFloat(inputDeg.value) || 0;
-      const tag = inputTag.value || 'target';
+      const deg = parseFloat(inputDeg.value) || 0
+      const tag = inputTag.value || 'target'
 
       // 공식: d = 2 * sin(theta / 2)
-      const rad = (deg / 2) * (Math.PI / 180);
-      const dist = 2 * Math.sin(rad);
+      const rad = (deg / 2) * (Math.PI / 180)
+      const dist = 2 * Math.sin(rad)
 
-      const finalDist = dist.toFixed(4);
-      resDist.textContent = finalDist;
+      const finalDist = dist.toFixed(4)
+      resDist.textContent = finalDist
 
-      const cmd = `execute positioned as @s facing entity @e[tag=${tag},limit=1] eyes positioned ^ ^ ^-1 rotated as @e[tag=${tag},limit=1] positioned ^ ^ ^-1 if entity @s[distance=..${finalDist}] run`;
-      resCmd.value = cmd;
+      const cmd = `execute positioned as @s facing entity @e[tag=${tag},limit=1] eyes positioned ^ ^ ^-1 rotated as @e[tag=${tag},limit=1] positioned ^ ^ ^-1 if entity @s[distance=..${finalDist}] run`
+      resCmd.value = cmd
    }
 
-   inputDeg.oninput = update;
-   inputTag.oninput = update;
+   inputDeg.oninput = update
+   inputTag.oninput = update
 
-   update();
+   update()
 
-   return container;
+   return container
 }

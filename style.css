@@ -1,5 +1,5 @@
 :root {
-   --background: #0b1220;
+   --background: #001122;
    --background-alpha: rgba(0,0,0,0.4);
    --background-light: rgba(200,200,200,.1);
    --background-side: rgba(255,255,255,.04);
@@ -36,7 +36,7 @@
 }
 @font-face {
    font-family: 'Minecraft-Event';
-   src: url('assets/fonts/minecrafter/Minecrafter.Reg.ttf')
+   src: url('assets/fonts/minecrafter/Minecrafter.Reg.ttf');
 }
 @font-face {
    font-family: 'GMarketSans';
@@ -45,11 +45,7 @@
    font-display: swap;
 }
 
-html, body {
-   height: 100%;
-   overflow: hidden;
-}
-
+html, body {height: 100%; overflow: hidden}
 body {
    background: linear-gradient(180deg, var(--background) 50%, #070707 100%);
    color: var(--content);
@@ -68,6 +64,14 @@ body {
    padding: 0 16px;
    z-index: 1000;
 }
+
+.APP {
+   margin-top: 8px;
+   height: calc(100% - 48px);
+   display: flex;
+}
+
+
 #MORE_BTN svg {
    transition: transform .3s ease;
    position: absolute;
@@ -94,7 +98,7 @@ body {
    position: fixed;
    top: 96px;
    right: 0;
-   width: 240px;
+   width: 280px;
    height: calc(100% - 160px);
    background: linear-gradient(180deg, var(--background), var(--background-pre));
    backdrop-filter: blur(8px);
@@ -108,9 +112,7 @@ body {
    flex-direction: column;
    gap: 12px;
 }
-#MORE_LIST.open {
-   transform: translateX(0);
-}
+#MORE_LIST.open {transform: translateX(0)}
 #MORE_LIST a {
    border-radius: 6px;
    cursor: pointer;
@@ -125,8 +127,8 @@ body {
    border-left: 4px solid var(--accent);
    transition: .125s ease;
 }
-#MORE_LIST::-webkit-scrollbar {width: 12px;}
-#MORE_LIST::-webkit-scrollbar-track {background: var(--background-side); border-radius: 4px;}
+#MORE_LIST::-webkit-scrollbar {width: 12px}
+#MORE_LIST::-webkit-scrollbar-track {background: var(--background-side); border-radius: 4px}
 #MORE_LIST::-webkit-scrollbar-thumb {background-color: var(--accent); border-radius: 4px}
 #MORE_LIST::-webkit-scrollbar-thumb:hover {background-color: var(--accent-light)}
 
@@ -171,6 +173,29 @@ body {
 #TOP_TITLE::after {content: 'Jump ↔ Dive 문서를 전환합니다.';}
 #HOME_TITLE::after {content: '메인 페이지로 이동합니다.';}
 
+
+/* 메뉴 버튼 */
+#MENU_BTN {
+   position: absolute;
+   flex-shrink: 0;
+   left: 2px;
+   top: 5px;
+   width: 54px;
+   height: 54px;
+   background: none;
+   border: none;
+   color: var(--title);
+   font-size: 36px;
+   cursor: pointer;
+   line-height: 1;
+   align-items: center;
+   justify-self: center;
+}
+#MENU_BTN:hover {
+   color: var(--accent-light);
+   transition: .1s ease;
+}
+
 /* 진행 바 */
 #PROGRESS {
    position: fixed;
@@ -202,11 +227,12 @@ body {
    backdrop-filter: blur(8px);
 }
 
+/* 검색 창 */
 #SEARCH{
    padding: 10px 12px;
    border-radius: 16px;
    background: var(--glass);
-   border: 1px solid var(--title);
+   border: 2px outset var(--subtitle);
    color: var(--subtitle);
    outline: none;
 }
@@ -220,6 +246,7 @@ body {
    padding: .0625em 2px;
 }
 
+/* 폰트 표시 */
 #FOOTER a {
    opacity: .6;
    font-size: 10px;
@@ -234,13 +261,8 @@ body {
    color: rgba(255,255,255,.35)
 }
 
-.APP {
-   margin-top: 8px;
-   height: calc(100% - 48px);
-   display: flex;
-}
 
-
+/* 사이드 바 */
 #SIDEBAR {
    height: calc(100% - 110px);
    min-height: 0;
@@ -255,6 +277,7 @@ body {
 }
 
 
+/* 사이드 바 스크롤 */
 #PAGES {
    flex: 1;
    min-height: 0;
@@ -262,11 +285,12 @@ body {
    overflow-y: auto;
    margin-bottom: 24px;
 }
-#PAGES::-webkit-scrollbar {width: 12px;}
-#PAGES::-webkit-scrollbar-track {background: var(--background-side); border-radius: 4px;}
+#PAGES::-webkit-scrollbar {width: 12px}
+#PAGES::-webkit-scrollbar-track {background: var(--background-side); border-radius: 4px}
 #PAGES::-webkit-scrollbar-thumb {background-color: var(--accent); border-radius: 4px}
 #PAGES::-webkit-scrollbar-thumb:hover {background-color: var(--accent-light)}
 
+/* 사이드 바 요소 */
 .SIDE_ITEM {
    display: block;
    padding: 8px 6px;
@@ -293,6 +317,7 @@ body {
    transition: .3s ease;
 }
 
+/* 본문 */
 .CONTENT {
    flex: 1;
    padding-left: 20px;
@@ -305,10 +330,12 @@ body {
 .CONTENT::-webkit-scrollbar-thumb:hover {background-color: var(--accent-light)}
 
 
+/* 본문 제목 */
 #TITLE {
    font-size: 40px;
    color: var(--title);
 }
+/* 본문 부제목 */
 #SUBTITLE {
    font-size: 28px;
    margin-top: -24px;
@@ -322,6 +349,7 @@ body {
    background: var(--background);
    padding: 22px
 }
+/* 본문 링크 */
 #ARTICLE a {
    color: var(--accent);
 }
@@ -329,6 +357,7 @@ body {
    transition: .1s ease;
    color: var(--accent-light);
 }
+/* 본문 코드 */
 #ARTICLE :not(pre) > code {
    background: var(--background-pre);
    font-family: 'D2Coding';
@@ -337,6 +366,7 @@ body {
    border-radius: 6px;
    font-size: .9em;
 }
+/* 본문 코드 블록 */
 #ARTICLE pre {
    cursor: copy;
    padding:12px;
@@ -351,6 +381,7 @@ body {
 #ARTICLE pre::-webkit-scrollbar-thumb {background-color: var(--accent); border-radius: 4px}
 #ARTICLE pre::-webkit-scrollbar-thumb:hover {background-color: var(--accent-light)}
 
+/* 본문 이미지, 영상 */
 #ARTICLE img:not(.EMOJI), video {
    display: block;
    max-width: 100%;
@@ -359,6 +390,7 @@ body {
    border-radius: 8px;
    object-fit: contain;
 }
+/* 본문 이모지 */
 img.EMOJI {
    display: inline-block;
    max-width: 100%;
@@ -368,6 +400,7 @@ img.EMOJI {
    vertical-align: middle;
 }
 
+/* 본문 링크 미리보기 */
 #LINK_PREVIEW {
    position: absolute;
    display: none;
@@ -387,6 +420,7 @@ img.EMOJI {
    opacity: 1;
 }
 
+/* 본문 박스 */
 .BOX {
    display: flex;
    gap: 6px;
@@ -395,6 +429,8 @@ img.EMOJI {
    border-radius: 8px;
    margin: 8px 0;
    white-space: pre-wrap;
+   background-color: var(--background-light);
+   font-family: 'GMarketSans';
 }
 .BOX_ICON {
    width: 36px;
@@ -402,40 +438,32 @@ img.EMOJI {
    flex-shrink: 0;
    filter: brightness(1.75);
 }
-.BOX_TEXT {font-family: 'GMarketSans'}
-.BOX_warning {
-   background-color: var(--background-light);
-   border-left: 5px solid var(--content-warning);
-}
-.BOX_info {
-   background-color: var(--background-light);
-   border-left: 5px solid var(--content-info);
-}
-.BOX_tip {
-   background-color: var(--background-light);
-   border-left: 5px solid var(--content-tip);
-}
+.BOX_warning {border-left: 6px solid var(--content-warning)}
+.BOX_info {border-left: 6px solid var(--content-info)}
+.BOX_tip {border-left: 6px solid var(--content-tip)}
 
+/* 본문 어노테이션 */
 .ANNOTATION {
    font-weight: bold;
    cursor: help;
    position: relative;
    display: block;
    font-size: 32px;
-   background-color: var(--background-light);
    padding: 12px 12px;
    margin-bottom: 12px;
    border-left: 5px solid;
    border-radius: 4px;
+   background-color: var(--background-light);
    font-family: 'Minecraft-Event';
 }
 .ANNOTATION.DEPRECATED {border-color: #ff5555;}
 .ANNOTATION.TODO {border-color: #ffcc00;}
 .ANNOTATION.NOTE {border-color: #55ff55;}
 
+/* 본문 자세히 보기 */
 #ARTICLE details {
    background: var(--background-light);
-   border-left: 4px solid var(--accent-green);
+   border-left: 6px solid var(--accent-green);
    border-radius: 6px;
    padding: 8px 12px;
    line-height: 1.6;
@@ -446,6 +474,7 @@ img.EMOJI {
    color: white;
    padding-left: 3px;
    cursor: pointer;
+   list-style: none;
    font-weight: bold;
 }
 #ARTICLE details summary:hover span {
@@ -455,18 +484,7 @@ img.EMOJI {
    border-radius: 8px;
    transition: background-color 0.1s ease;
 }
-#ARTICLE details p {
-   color: var(--subtitle);
-   margin: 6px 0 0 0;
-}
-
-#ARTICLE details summary {
-   list-style: none;
-   cursor: pointer;
-}
-#ARTICLE details summary::-webkit-details-marker {
-   display: none;
-}
+#ARTICLE details summary::-webkit-details-marker {display: none}
 #ARTICLE details summary::before {
    content: "";
    display: inline-block;
@@ -479,10 +497,14 @@ img.EMOJI {
    vertical-align: middle;
    filter: brightness(1.5);
 }
-#ARTICLE details[open] summary::before {
-   background-image: url("assets/img/emoji/open.png");
+/* 자세히 보기 열림 */
+#ARTICLE details[open] summary::before {background-image: url("assets/img/emoji/open.png")}
+#ARTICLE details p {
+   color: var(--subtitle);
+   margin: 6px 0 0 0;
 }
 
+/* 본문 표 */
 #ARTICLE table {
    max-width: 800px;
    border-collapse: collapse;
@@ -507,6 +529,4 @@ img.EMOJI {
    background: var(--background-side);
    cursor: cell;
 }
-#ARTICLE tr:last-child td {
-   border-bottom: none;
-}
+#ARTICLE tr:last-child td {border-bottom: none}

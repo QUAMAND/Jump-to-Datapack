@@ -9,7 +9,7 @@ export const DOM = {
    CONTENT: document.querySelector('.CONTENT'),
    PARROT: document.getElementById('LOADING'),
    PROGRESS: document.getElementById('PROGRESS'),
-   
+
    MENU_BTN: document.getElementById('MENU_BTN'),
    MORE_BTN: document.getElementById('MORE_BTN'),
    MORE_LIST: document.getElementById('MORE_LIST'),

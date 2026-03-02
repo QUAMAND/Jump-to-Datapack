@@ -3,7 +3,7 @@ import { STATE } from "./STATE.mjs"
 import { LOAD_PAGE } from "./Page.mjs"
 import { SIDEBAR_RENDER } from "./Sidebar.mjs"
 
-export function SEARCH_INIT() {
+export function SEARCH() {
    DOM.SEARCH.addEventListener('input', () => {
       const q = DOM.SEARCH.value.trim().toLowerCase()
 

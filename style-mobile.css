@@ -1,55 +1,23 @@
-/* ── 모바일 ───────────────────────────────── */
-/* MENU_BTN은 모바일에서만 표시 */
-#MENU_BTN {
-   position: absolute;
-   flex-shrink: 0;
-   left: 2px;
-   top: 4px;
-   width: 54px;
-   height: 54px;
-   background: none;
-   border: none;
-   color: var(--title);
-   font-size: 36px;
-   cursor: pointer;
-   line-height: 1;
-   align-items: center;
-   justify-self: center;
-}
-#MENU_BTN:hover {
-   color: var(--accent-light);
-   transition: .1s ease;
-}
-
+/* 모바일 스타일 */
 @media (max-width: 768px) {
-   #MENU_BTN {
-      display: block;
-   }
-   #TOP_TITLE {
-      white-space: nowrap;
-      transition: .1s ease;
-      font-size: clamp(20px, 5vw, 60px);
-   }
+   #MENU_BTN {display: block}
+
    #SIDEBAR {
       background: linear-gradient(180deg, var(--background), var(--background-pre));
       margin-top: 20px;
       border: 1px solid var(--background-light);
       position: fixed;
       top: 76px; left: 0;
-      height: calc(100% - 48px);
+      height: calc(100% - 160px);
       width: 280px;
       transform: translateX(-100%);
       transition: transform .2s ease;
       backdrop-filter: blur(4px);
       z-index: 600;
    }
-   #SIDEBAR.open {
-      transform: translateX(0);
-   }
+
+   #SIDEBAR.open {transform: translateX(0)}
 }
 
-@media (min-width: 768px) {
-   #MENU_BTN {
-      display: none;
-   }
-}
+/* 모바일 벗어남 */
+@media (min-width: 768px) {#MENU_BTN {display: none}}

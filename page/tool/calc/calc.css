@@ -1,4 +1,4 @@
-body { margin: 8 }
+body {margin: 8}
 
 .CALCS {
    flex: 1;
@@ -22,9 +22,7 @@ body { margin: 8 }
    margin-bottom: 70px;
 }
 
-.TOOL_BODY {
-   width: 100%;
-}
+.TOOL_BODY {width: 100%}
 
 .TOOL_ITEM {
    display: block;
@@ -70,9 +68,7 @@ body { margin: 8 }
    font-family: 'D2Coding';
 }
 
-.CALC_TABLE {
-   border-collapse: collapse;
-}
+.CALC_TABLE {border-collapse: collapse}
 .CALC_TABLE th {
    text-align: left;
    padding: 8px 16px 8px 0;

@@ -35,27 +35,25 @@ export async function LOAD_PAGE(slug) {
 
    try {
       if (!p.content) {
-         const res = await fetch(p.file || `docs/${STATE.modeN}/${slug}.md`);
-         p.content = await res.text();
+         const res = await fetch(p.file || `docs/${STATE.modeN}/${slug}.md`)
+         p.content = await res.text()
       }
 
       DOM.ARTICLE.innerHTML = marked.parse(p.content)
 
-      POST_PROCESS.APPLY_EMOJI();
-      POST_PROCESS.APPLY_ANNOTATION();
-      POST_PROCESS.APPLY_LINK_PREVIEW();
+      POST_PROCESS.APPLY_EMOJI()
+      POST_PROCESS.APPLY_ANNOTATION()
+      POST_PROCESS.APPLY_LINK_PREVIEW()
 
-      const MERMAIDS = DOM.ARTICLE.querySelectorAll('.mermaid');
+      const MERMAIDS = DOM.ARTICLE.querySelectorAll('.mermaid')
       if (MERMAIDS.length > 0 && window.mermaid) {
          setTimeout(async () => {
             try {
-               await mermaid.run({ nodes: DOM.ARTICLE.querySelectorAll('.mermaid') });
-            } catch (err) { console.error("Mermaid Render Error:", err); }
-         }, 50);
+               await mermaid.run({ nodes: DOM.ARTICLE.querySelectorAll('.mermaid') })
+            } catch (e) { console.error("Mermaid Render Error:", e) }
+         }, 1)
       }
-   } catch (e) {
-      DOM.ARTICLE.textContent = '불러오기 실패: ' + e
-   }
+   } catch (e) {DOM.ARTICLE.textContent = 'mermaid 불러오기 실패: ' + e}
 }
 
 /**

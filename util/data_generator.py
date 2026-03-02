@@ -55,9 +55,9 @@ print(f"\n[INFO] {VERSION} server.jar 다운로드 완료")
 ## 데이터 생성
 print("\n[INFO] 데이터 생성 중...\n")
 subprocess.run([
-    "java",
-    "-DbundlerMainClass=net.minecraft.data.Main",
-    "-jar", "server.jar",
-    "--all"
+   "java",
+   "-DbundlerMainClass=net.minecraft.data.Main",
+   "-jar", "server.jar",
+   "--all"
 ], cwd=DIRECTORY)
 print("\n[INFO] 데이터 생성 완료")

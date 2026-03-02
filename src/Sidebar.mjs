@@ -5,9 +5,7 @@ import { LOAD_PAGE } from "./Page.mjs"
  * 사이드 바 표시
  */
 export function SIDEBAR_RENDER(list, depth = 0) {
-   if (depth === 0) {
-      DOM.PAGES.innerHTML = ''
-   }
+   if (depth === 0) DOM.PAGES.innerHTML = ''
 
    list.forEach(element => {
       /** null.md 공간 띄우기로 활용 */
@@ -20,9 +18,7 @@ export function SIDEBAR_RENDER(list, depth = 0) {
 
       const a = document.createElement('a')
       /** 최상위 부모.md 글씨 크기 키우기 */
-      if (depth === 0) {
-         a.style.fontSize = '22px'
-      }
+      if (depth === 0) a.style.fontSize = '22px'
 
       a.className = 'SIDE_ITEM'
       a.textContent = element.title

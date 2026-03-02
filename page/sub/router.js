@@ -8,6 +8,11 @@ const routes = {
       title: 'Base_64',
       icon: 'assets/img/page/base64.png',
       module: './type/base64.mjs'
+   },
+   'uuid': {
+      title: 'UUID',
+      icon: 'assets/img/page/uuid.png',
+      module: './type/uuid.mjs'
    }
 }
 

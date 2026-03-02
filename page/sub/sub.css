@@ -1,7 +1,7 @@
 option {background-color: var(--background)}
 
 .SUB_WRAPPER {
-   height: calc(100vh - 256px);
+   height: calc(100vh - 230px);
    overflow-x: hidden;
    overflow-y: auto;
    background: var(--background);

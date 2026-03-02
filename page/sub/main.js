@@ -1,9 +1,11 @@
 import JarPage from "./type/jar.mjs"
 import Base64Page from "./type/base64.mjs"
+import UUIDPage from "./type/uuid.mjs"
 
 const pages = {
     'jar': JarPage,
-    'base64': Base64Page
+    'base64': Base64Page,
+    'uuid': UUIDPage
 }
 
 const VIEW = document.getElementById("SUB_VIEW")

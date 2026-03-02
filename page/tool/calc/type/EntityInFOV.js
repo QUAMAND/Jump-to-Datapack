@@ -1,5 +1,3 @@
-import { createTool } from "../ui/template.js"
-
 export default function EntityInFOV() {
    const container = document.createElement('div');
    container.className = 'TOOL_BODY';

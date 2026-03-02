@@ -1,5 +1,3 @@
-import { createTool } from "../ui/template.js"
-
 export default function NetherPos() {
    const div = document.createElement('div')
    div.className = 'TOOL_BODY'

@@ -1,5 +1,3 @@
-import { createTool } from "../ui/template.js"
-
 export default function ChunkPos() {
    const div = document.createElement('div')
    div.className = 'TOOL_BODY'
@@ -37,7 +35,7 @@ export default function ChunkPos() {
       </table>
    `
 
-   // 블록 → 청크
+   /** block -> chunk */
    function blockToChunk() {
       const bx = parseInt(div.querySelector('#bx').value) || 0
       const bz = parseInt(div.querySelector('#bz').value) || 0
@@ -51,7 +49,7 @@ export default function ChunkPos() {
       updateLocal(bx, bz)
    }
 
-   // 청크 → 블록
+   /** chunk -> block */
    function chunkToBlock() {
       const cx = parseInt(div.querySelector('#cx').value) || 0
       const cz = parseInt(div.querySelector('#cz').value) || 0

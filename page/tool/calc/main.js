@@ -13,15 +13,21 @@ const tools = {
 const MENU = document.getElementById("SIDEBAR")
 const VIEW = document.getElementById("CALC_VIEW")
 
-function load(name) {
+/**
+ * 도구 로드
+ * @param {string} name 도구 이름
+ * @param {boolean} isPopState 앞/뒤 실행 여부
+ */
+
+function load(name, isPopState = false) {
    if (!tools[name]) name = Object.keys(tools)[0]
 
    VIEW.innerHTML = ""
    VIEW.appendChild(tools[name]())
 
-   const newUrl = `?calc=${name}`
-   if (location.search !== newUrl) {
-      history.pushState({}, "", newUrl)
+   const newUrl = `?calc=${encodeURIComponent(name)}`
+   if (!isPopState && location.search !== newUrl) {
+      history.pushState({tool: name}, "", newUrl)
    }
    setActive(name)
 }
@@ -46,7 +52,12 @@ Object.keys(tools).forEach(name => {
 const START = new URLSearchParams(location.search).get('calc') || Object.keys(tools)[0]
 load(START)
 
-window.onpopstate = () => {
-   const TOOL = new URLSearchParams(location.search).get('calc') || Object.keys(tools)[0]
-   load(TOOL)
+/**
+ * 브라우저 앞/뒤로 가기 이벤트
+ */
+window.onpopstate = (event) => {
+   const TOOL = (event.state && event.state.tool) 
+      ? event.state.tool 
+      : new URLSearchParams(location.search).get('calc') || Object.keys(tools)[0]
+   load(TOOL, true)
 }

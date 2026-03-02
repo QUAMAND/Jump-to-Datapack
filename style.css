@@ -139,7 +139,7 @@ body {
    color: var(--title);
    transition: .1s ease;
    font-family: 'Minecraft-Event';
-   font-size: clamp(20px, 4vw, 55px);
+   font-size: clamp(20px, 5vw, 60px);
 }
 #TOP_TITLE::after,
 #HOME_TITLE::after {

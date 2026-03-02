@@ -1,20 +1,18 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-   <base href="./">
+   <base href="../../">
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>JAR downloads</title>
-   <link rel="icon" href="assets/img/page/jar.png"/>
+   <title id="DYNAMIC_TITLE">Loading</title>
+   <link rel="icon" id="DYNAMIC_ICON" href=""/>
    <link rel="stylesheet" href="style.css"/>
-   <link rel="stylesheet" href="jar.css"/>
+   <link rel="stylesheet" href="page/sub/sub.css"/>
 </head>
-
 <body>
-   <!-- 모바일 상단 바 -->
    <div id="TOPBAR">
       <div id="TOP_TITLE">
-         <span id="HOME_TITLE">JAR downloads</span>
+         <span id="HOME_TITLE">Loading</span>
       </div>
       <div id="MORE_BTN">
          <svg viewBox="0 0 8 8" width="24" height="24" shape-rendering="crispEdges" xmlns="http://www.w3.org/2000/svg">
@@ -32,6 +30,8 @@
       </div>
       <div id="MORE_LIST">
          <a href="./index.html"><img class="EMOJI" src="assets/icon.png"/> Jump to Datapack</a>
+         <a href="page/sub/index.html?page=jar"><img class="EMOJI" src="assets/img/page/jar.png"/> JAR downloads</a>
+         <a href="page/sub/index.html?page=base64"><img class="EMOJI" src="assets/img/page/base64.png"/> Base64</a>
          <a href="page/tool/calc/index.html"><img class="EMOJI" src="assets/img/page/calc.png"/> Calculators</a>
          <a href="page/tool/edit/index.html"><img class="EMOJI" src="assets/img/page/edit.png"/> Editors</a>
          <br/>
@@ -49,31 +49,7 @@
       </div>
    </div>
 
-   <div class="APP">
-      <div id="JAR_SEARCH">
-         <h2>Jar 다운로드</h2>
-
-         <div>
-            <label for="JAR_TYPE">Jar 종류</label>
-            <select id="JAR_TYPE" class="JQL_INPUT">
-               <option value="CLIENT">client</option>
-               <option value="SERVER">server</option>
-               <option value="BOTH">both</option>
-            </select>
-         </div>
-
-         <div class="VERSIONS">
-            <label for="VERSION">버전</label>
-            <input type="text" id="VERSION" class="JQL_INPUT" placeholder="버전 입력 또는 선택..."
-               autocomplete="off" />
-            <ul id="VERSION_LIST"></ul>
-            <button id="DOWNLOADS">다운로드</button>
-         </div>
-      </div>
-      </main>
-   </div>
-   <script type="module" src="js/main.mjs"></script>
-   <script src="jar.js"></script>
+   <script type="module" src="src/main.mjs"></script>
+   <div id="ROUTER"></div> <script type="module" src="page/sub/router.js"></script>
 </body>
 </html>
-</div>

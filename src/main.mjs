@@ -8,9 +8,9 @@ import { MODE_TOGGLE } from "./Mode.mjs"
  * 1. 환경 체크
  */
 const path = window.location.pathname
-const isJAR = path.endsWith('jar.html')
+const isSUB = path.includes('page/sub/')
 const isTOOL = path.includes('page/tool/')
-const isMAIN = !isJAR && !isTOOL
+const isMAIN = !isSUB && !isTOOL
 
 /**
  * 2. 메인 위키 전용 기능

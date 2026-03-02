@@ -1,6 +1,6 @@
 export default function JarPage() {
    const container = document.createElement('div')
-   container.className = 'CONTENT' // CSS 시스템의 여백을 따름
+   container.className = 'CONTENT'
 
    container.innerHTML = `
          <div class="SUB_WRAPPER">

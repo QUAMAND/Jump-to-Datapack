@@ -29,7 +29,7 @@ export default function Viewer() {
       <div id="NBT3D_DROP">
          <div id="NBT3D_INNER">
             <img src="assets/img/page/edit.png" width="64"/>
-            <p>.nbt 파일을 드래그하거나 클릭해서 여세요</p>
+            <p>.nbt 파일을 드래그하거나 직접 열 수 있습니다.</p>
             <input type="file" id="NBT3D_INPUT" accept=".nbt"/>
          </div>
       </div>
@@ -53,12 +53,12 @@ export default function Viewer() {
       </div>
    `
 
-   const dropZone   = div.querySelector('#NBT3D_DROP')
-   const fileInput  = div.querySelector('#NBT3D_INPUT')
-   const wrap       = div.querySelector('#NBT3D_WRAP')
+   const dropZone = div.querySelector('#NBT3D_DROP')
+   const fileInput = div.querySelector('#NBT3D_INPUT')
+   const wrap = div.querySelector('#NBT3D_WRAP')
    const canvasWrap = div.querySelector('#NBT3D_CANVAS')
-   const info       = div.querySelector('#NBT3D_INFO')
-   const tooltip    = div.querySelector('#NBT3D_TOOLTIP')
+   const info = div.querySelector('#NBT3D_INFO')
+   const tooltip = div.querySelector('#NBT3D_TOOLTIP')
 
    dropZone.addEventListener('click', () => fileInput.click())
    dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('drag') })

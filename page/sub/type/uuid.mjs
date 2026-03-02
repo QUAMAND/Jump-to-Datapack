@@ -79,7 +79,7 @@ export default function UUIDPage() {
       output.placeholder = "결과가 여기에 표시됩니다."
    }
 
-   /** 1. Profile 버튼: 기본 정보 조회 */
+   /** 1. Name 2 profile */
    container.querySelector('#GET_PROFILE_BTN').onclick = async () => {
       clearError()
       const val = input.value.trim()
@@ -93,14 +93,13 @@ export default function UUIDPage() {
          output.value = `Name: ${data.name}\nUUID: ${data.id}\nInt Array: ${uuidToIntArray(data.id)}`
          
          skinHead.src = `https://minotar.net/helm/${data.name}/64.png`
+         document.getElementById('DYNAMIC_ICON').href = skinHead.src
          playerName.textContent = data.name
          skinViewer.style.display = 'block'
-      } catch (e) {
-         handleError("조회 실패: " + e.message)
-      }
+      } catch (e) {handleError("조회 실패: " + e.message)}
    }
 
-   /** 2. Get Base64 버튼: 텍스처 데이터 추출 */
+   /** 2. Name 2 base64 */
    container.querySelector('#TO_BASE64_BTN').onclick = async () => {
       clearError()
       const val = input.value.trim()
@@ -125,53 +124,47 @@ export default function UUIDPage() {
          }
          
          skinHead.src = `https://minotar.net/helm/${uuidData.name}/64.png`
+         document.getElementById('DYNAMIC_ICON').href = skinHead.src
          playerName.textContent = uuidData.name
          skinViewer.style.display = 'block'
-      } catch (e) {
-         handleError("Base64 추출 실패")
-      }
+      } catch (e) {handleError("Base64 추출 실패")}
    }
 
-   /** 3. Base64 to Skin 버튼: Base64를 해석해 이미지 표시 */
+   /** 3. Base64 2 skin */
    container.querySelector('#DECODE_BASE64_BTN').onclick = () => {
       clearError()
       const val = input.value.trim()
       if (!val) return
 
       try {
-         // Base64 디코딩 (JSON 문자열 추출)
+         /** 디코딩 */
          const decodedData = JSON.parse(atob(val))
          const skinUrl = decodedData.textures.SKIN.url
          
          output.value = `해석된 스킨 URL:\n${skinUrl}`
          
-         // 이미지 뷰어 업데이트
+         /** 이미지 업데이트 */
          skinHead.src = skinUrl
+         document.getElementById('DYNAMIC_ICON').href = skinHead.src
          playerName.textContent = "해석된 Base64"
          skinViewer.style.display = 'block'
-      } catch (e) {
-         handleError("유효한 Base64 데이터가 아닙니다.")
-      }
+      } catch (e) {handleError("유효한 Base64 데이터가 아닙니다.")}
    }
 
-   /** 4. String to Int[] 버튼 */
+   /** 4. String 2 int[] */
    container.querySelector('#TO_INT_ARRAY_BTN').onclick = () => {
       clearError()
       try {
          output.value = uuidToIntArray(input.value.trim())
-      } catch (e) {
-         handleError("UUID 형식이 올바르지 않습니다.")
-      }
+      } catch (e) {handleError("UUID 형식이 올바르지 않습니다.")}
    }
 
-   /** 5. Int[] to String 버튼 */
+   /** 5. Int[] 2 string */
    container.querySelector('#TO_STRING_BTN').onclick = () => {
       clearError()
       try {
          output.value = intArrayToUuid(input.value.trim())
-      } catch (e) {
-         handleError("정수 배열 형식이 올바르지 않습니다.")
-      }
+      } catch (e) {handleError("정수 배열 형식이 올바르지 않습니다.")}
    }
 
    /** 복사 버튼 */

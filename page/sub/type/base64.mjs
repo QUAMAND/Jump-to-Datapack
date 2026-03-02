@@ -55,7 +55,7 @@ export default function Base64Page() {
       output.placeholder = "결과가 여기에 표시됩니다."
    }
 
-   /** 이벤트 핸들러 */
+   /** 이벤트 */
    container.querySelector('#ENCODE_BTN').onclick = () => {
       clearError()
       try { 

@@ -17,6 +17,16 @@ export async function LOAD_PAGE(slug) {
       DOM.SIDEBARS.classList.remove('open')
    }
 
+   /** 스크롤 초기화 */
+   if (DOM.CONTENT) DOM.CONTENT.scrollTop = 0
+
+   /** 링크 프리뷰 숨기기 */
+   const preview = document.getElementById('LINK_PREVIEW')
+   if (preview) {
+      preview.classList.remove('show')
+      preview.style.display = 'none'
+   }
+
    /** 클릭된 사이드 바 표시 */
    document.querySelectorAll('.SIDE_ITEM').forEach(a => {
       a.classList.toggle('active', a.dataset.slug === slug)

@@ -2,129 +2,117 @@ import { DOM } from "./DOM.mjs"
 import { STATE } from "./STATE.mjs"
 import { SITE_LOAD } from "./Loader.mjs"
 import { SEARCH } from "./Search.mjs"
-import { MODE_TOGGLE } from "./Mode.mjs"
 
 /**
- * 1. 환경 체크
+ * 구성 및 환경 설정
  */
-const path = window.location.pathname
-const isSUB = path.includes('page/sub/')
-const isTOOL = path.includes('page/tool/')
-const isMAIN = !isSUB && !isTOOL
+const App = {
+   /** page/가 아니면 Main임 */
+   isMain: !window.location.pathname.includes('page/'),
 
-/**
- * 2. 메인 위키 전용 기능
- */
-if (isMAIN) {
-   /** 진행 바 */
-   if (DOM.CONTENT && DOM.PROGRESS) {
-      DOM.CONTENT.addEventListener('scroll', () => {
-         const top = DOM.CONTENT.scrollTop
-         const height = DOM.CONTENT.scrollHeight - DOM.CONTENT.clientHeight
-         DOM.PROGRESS.style.width = (top / height * 100) + "%"
-      })
-   }
-
-   /** 검색어 창 단축키 */
-   document.addEventListener('keydown', e => {
-      if (e.key === '/' && DOM.SEARCH && document.activeElement !== DOM.SEARCH) {
-         e.preventDefault()
-         DOM.SEARCH.focus()
+   init() {
+      this.UI()
+      if (this.isMain) {
+         this.IN()
       }
-   })
+   },
 
-   /** 모드 변경 */
-   if (DOM.TOP_TITLE) {
-      DOM.TOP_TITLE.onclick = MODE_TOGGLE
-   }
-}
-
-/**
- * 3. 모드 적용 함수
- */
-function MODE_APPLY() {
-   const n = parseInt(location.hash.replace("#", ""))
-   if (isNaN(n)) return
-
-   STATE.modeN = n
-   STATE.mode = STATE.modes[n]
-   STATE.path = `docs/${n}/pages.json`
-   if (DOM.TOP_TITLE) {
-      DOM.TOP_TITLE.textContent = STATE.modes_name[n]
-   }
-}
-
-/**
- * 4. 사이트 첫 진입 (초기화)
- */
-window.addEventListener('DOMContentLoaded', () => {
-
-   INIT_UI_EVENTS()
-
-   /** 최상위 index.html */
-   if (isMAIN) {
+   /**
+    * 초기 로드 로직
+    */
+   IN() {
+      /** 아무 것도 없으면 #1 */
       if (!location.hash) {
          location.hash = "1"
          return
       }
-      MODE_APPLY()
-      SITE_LOAD()
+
+      /** 주소가 변경되면 */
+      window.addEventListener("hashchange", () => {
+         if (this.isMain) {this.handleMain()}
+      })
+
+      /** 첫 로드 */
+      if (this.isMain) {this.handleMain()}
+
       if (typeof SEARCH === 'function') SEARCH()
-   }
-})
+   },
 
-/**
- * 5. 주소 변경
- */
-window.addEventListener("hashchange", () => {
-   if (isMAIN) {
-      MODE_APPLY()
+   /** 메인 페이지 */
+   handleMain() {
+      this.applyMode()
       SITE_LOAD()
-   }
-})
+      return
+   },
 
-/**
- * 6. UI 이벤트 초기화
- */
-function INIT_UI_EVENTS() {
-   /** 메뉴 버튼 */
-   if (DOM.MENU_BTN && DOM.SIDEBARS) {
-      DOM.MENU_BTN.addEventListener('click', e => {
-         e.stopPropagation()
-         DOM.MENU_BTN.classList.toggle('open')
-         DOM.SIDEBARS.classList.toggle('open')
-      })
-   }
+   /** 모드 적용 */
+   applyMode() {
+      const n = parseInt(location.hash.replace("#", ""))
+      if (!isNaN(n)) {
+         STATE.modeN = n
+         STATE.mode = STATE.modes[n]
+         STATE.path = `docs/${n}/pages.json`
 
-   /** MORE 버튼 */
-   if (DOM.MORE_BTN && DOM.MORE_LIST) {
-      DOM.MORE_BTN.addEventListener('click', e => {
-         e.stopPropagation()
-         DOM.MORE_BTN.classList.toggle('open')
-         DOM.MORE_LIST.classList.toggle('open')
-      })
-   }
+         DOM.TOP_TITLE.textContent = STATE.modes_name[n]
+      }
+   },
 
-   /** 닫기 */
-   document.addEventListener('click', e => {
-      /** 메뉴 버튼 */
-      if (DOM.MENU_BTN && DOM.SIDEBARS) {
-         if (!DOM.MENU_BTN.contains(e.target) && !DOM.SIDEBARS.contains(e.target)) {
-            DOM.MENU_BTN.classList.remove('open')
-            DOM.SIDEBARS.classList.remove('open')
+   /**
+    * UI 초기화
+    */
+   UI() {
+      /** 홈 글자 누르면, 메인 페이지로 이동 */
+      if (!this.isMain) {
+         DOM.HOME_TITLE.onclick = () => { location.href = "#1" }
+      } else {
+         DOM.TOP_TITLE.onclick = () => {
+            location.hash = (STATE.modeN === 1) ? "2" : "1"
          }
       }
-      /** MORE 버튼 */
-      if (DOM.MORE_BTN && DOM.MORE_LIST) {
-         if (!DOM.MORE_BTN.contains(e.target) && !DOM.MORE_LIST.contains(e.target)) {
-            DOM.MORE_BTN.classList.remove('open')
-            DOM.MORE_LIST.classList.remove('open')
-         }
-      }
-   })
 
-   /** 홈 버튼 */
-   if (DOM.HOME_TITLE) {
-      DOM.HOME_TITLE.onclick = () => { location.href = "#1" }
+      /** Menu, More 버튼 */
+      this.ListToggle(DOM.MENU_BTN, DOM.SIDEBARS)
+      this.ListToggle(DOM.MORE_BTN, DOM.MORE_LIST)
+
+      /* 다른 곳 클릭, 닫기 */
+      document.addEventListener('click', (e) => {
+         this.ListClose(e, DOM.MENU_BTN, DOM.SIDEBARS)
+         this.ListClose(e, DOM.MORE_BTN, DOM.MORE_LIST)
+      })
+   },
+
+   /**
+    * 버튼 기능
+    */
+   ListToggle(btn, target) {
+      if (!btn || !target) return
+
+      btn.addEventListener('click', (e) => {
+         e.stopPropagation()
+         btn.classList.toggle('open')
+         target.classList.toggle('open')
+      })
+   },
+
+   /**
+    * 다른 곳 클릭 닫기
+    */
+   ListClose(e, btn, target) {
+      if (!btn || !target) return
+
+      if (!btn.contains(e.target) && !target.contains(e.target)) {
+         btn.classList.remove('open')
+         target.classList.remove('open')
+      }
    }
 }
+
+/**
+ * 최초
+ */
+window.addEventListener('DOMContentLoaded', () => App.init())
+
+/**
+ * 로딩 화면
+ */
+window.onload = function() {DOM.PARROT.style.display = 'none'}

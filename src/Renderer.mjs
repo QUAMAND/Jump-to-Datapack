@@ -222,6 +222,11 @@ export const POST_PROCESS = {
             PREVIEW_BOX.classList.remove('show')
             PREVIEW_BOX.style.display = 'none'
          })
+
+         link.addEventListener('click', () => {
+            PREVIEW_BOX.classList.remove('show')
+            PREVIEW_BOX.style.display = 'none'
+         })
       })
    },
 

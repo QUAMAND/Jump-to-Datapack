@@ -5,7 +5,7 @@ import { SEARCH } from "./Search.mjs";
 import { MODE_TOGGLE } from "./Mode.mjs";
 
 /**
- * 1. 환경 체크
+ * 구성 및 환경 설정
  */
 const path = window.location.pathname;
 const isSUB = path.includes("page/sub/");

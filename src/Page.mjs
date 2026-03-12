@@ -11,6 +11,9 @@ POST_PROCESS.INIT_COPY_EVENT()
  * 페이지 불러오기
  */
 export async function LOAD_PAGE(slug) {
+   /** 진행 바 초기화 */
+   DOM.PROGRESS.style.width = '0%'
+
    /** 모바일 화면 시, 사이드 바 닫기 */
    if (window.innerWidth <= 768) {
       DOM.MENU_BTN.classList.remove('open')

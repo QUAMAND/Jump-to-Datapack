@@ -7,7 +7,6 @@ import { LOAD_PAGE } from "./Page.mjs"
  * 사이트 불러오기
  */
 export async function SITE_LOAD() {
-   DOM.PARROT.style.display = 'flex' // 앵무새
 
    const f = await fetch(STATE.path)
    STATE.pages = await f.json()
@@ -21,5 +20,10 @@ export async function SITE_LOAD() {
       LOAD_PAGE(slug)
    }
 
-   DOM.PARROT.style.display = 'none' // 앵무새 없앰
+   /** 진행 바 */
+   DOM.CONTENT.addEventListener('scroll', () => {
+      const top = DOM.CONTENT.scrollTop
+      const height = DOM.CONTENT.scrollHeight - DOM.CONTENT.clientHeight
+      DOM.PROGRESS.style.width = (top / height * 100) + "%"
+   })
 }

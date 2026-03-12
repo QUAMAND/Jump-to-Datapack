@@ -4,7 +4,7 @@
 
    #SIDEBAR {
       background: linear-gradient(180deg, var(--background), var(--background-pre));
-      margin-top: 20px;
+      margin-top: 32px;
       border: 1px solid var(--background-light);
       position: fixed;
       top: 76px; left: 0;

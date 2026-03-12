@@ -4,6 +4,8 @@ import { LOAD_PAGE } from "./Page.mjs"
 import { SIDEBAR_RENDER } from "./Sidebar.mjs"
 
 export function SEARCH() {
+   if (!DOM.SEARCH) return
+
    DOM.SEARCH.addEventListener('input', () => {
       const q = DOM.SEARCH.value.trim().toLowerCase()
 
@@ -20,9 +22,9 @@ export function SEARCH() {
       if (result.length > 0) {
          LOAD_PAGE(result[0].slug)
       } else {
-         TITLE.textContent = '검색 결과 없음'
-         SUBTITLE.textContent = `"${q}"에 해당하는 내용이 없습니다.`
-         ARTICLE.textContent = ''
+         DOM.TITLE.textContent = '검색 결과 없음'
+         DOM.SUBTITLE.textContent = `"${q}"에 해당하는 내용이 없습니다.`
+         DOM.ARTICLE.textContent = ''
       }
 
       HIGHLIGHT(q)
@@ -60,4 +62,12 @@ export function SEARCH() {
          node.parentNode.replaceChild(span, node)
       })
    }
+
+   /** 검색어 창 단축키 */
+   document.addEventListener('keydown', e => {
+      if (e.key === '/' && DOM.SEARCH && document.activeElement !== DOM.SEARCH) {
+         e.preventDefault()
+         DOM.SEARCH.focus()
+      }
+   })
 }
